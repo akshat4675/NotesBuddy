@@ -1,7 +1,7 @@
 // src/awsConfig.ts
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-const REGION = import.meta.env.VITE_AWS_REGION;
+const REGION = "ap-south-1";
 const ACCESS_KEY_ID = import.meta.env.VITE_AWS_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_SECRET_ACCESS_KEY;
 const BUCKET_NAME = import.meta.env.VITE_AWS_BUCKET_NAME;
