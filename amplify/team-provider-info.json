@@ -10,14 +10,6 @@
       "StackName": "amplify-git-dev-946e7",
       "StackId": "arn:aws:cloudformation:ap-south-1:273354657219:stack/amplify-git-dev-946e7/851d7d50-95e0-11ef-b030-0271507292fb",
       "AmplifyAppId": "dkliiv392a9b0"
-    },
-    "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "dkliiv392a9b0",
-          "type": "manual"
-        }
-      }
     }
   }
 }
