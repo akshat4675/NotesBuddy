@@ -1,14 +1,29 @@
 // src/App.tsx
-import React from "react";
-import S3Upload from "./components/S3Upload";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import './globals.css'
+import LoginPage from "./components/auth/loginPage" 
+import ConfirmPage from "./components/auth/confirmPage"
+import HomePage from "./components/root/homePage"
+import StudyMaterialsPage from './components/root/study-materials';
+import SchedulePage from './components/root/schedule';
+const App = () => {
 
-const App: React.FC = () => {
+  const isAuthenticated = () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    return !!accessToken;
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Upload to S3</h1>
-      <S3Upload />
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route element={isAuthenticated() ? <Navigate replace to="/home" /> : <Navigate replace to="/login" />}  path="/"></Route>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/confirm" element={<ConfirmPage />} />
+      <Route path="/home" element={isAuthenticated() ? <HomePage /> : <Navigate replace to="/login" />} />
+      <Route path="/studymaterials" element={isAuthenticated() ? <StudyMaterialsPage /> : <Navigate replace to="/login" />} />
+      <Route path="/schedule" element={isAuthenticated() ? <SchedulePage /> : <Navigate replace to="/login" />} />
+    </Routes>
+    </BrowserRouter>
   );
 };
 
