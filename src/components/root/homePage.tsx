@@ -43,7 +43,7 @@ const HomePage = () => {
 
   const handleDeleteEvent = async (event: Event) => {
     try {
-      await deleteEventByName(event.id, event.eventName); // Pass both id and eventName
+      await deleteEventByName(event.eventName); // Pass both id and eventName
       alert("Event deleted successfully!");
       fetchAllEvents(); // Refresh the list after deleting an event
     } catch (error) {
@@ -154,6 +154,7 @@ function SideBarfunction(){
     navigate('/schedule');
   }
   
+
 
   return(
     <>
