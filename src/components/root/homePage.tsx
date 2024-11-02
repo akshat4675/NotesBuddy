@@ -83,8 +83,6 @@ const HomePage = () => {
       <main className="flex-1 overflow-y-auto">
         
         <div className="p-32 w-auto bg-black-400">
-          <h2 className="text-2xl text-center text-cyan-50 font-bold mb-6">DashBoard</h2>
-
           
 
           {/* Recommended Study Materials */}
@@ -155,6 +153,7 @@ function SideBarfunction(){
   const schedul =()=>{
     navigate('/schedule');
   }
+  
 
   return(
     <>

@@ -6,6 +6,8 @@ import ConfirmPage from "./components/auth/confirmPage"
 import HomePage from "./components/root/homePage"
 import StudyMaterialsPage from './components/root/study-materials';
 import SchedulePage from './components/root/schedule';
+
+
 const App = () => {
 
   const isAuthenticated = () => {

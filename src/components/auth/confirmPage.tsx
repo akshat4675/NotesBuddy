@@ -36,7 +36,7 @@ const confirmPage = () => {
       alert(`Failed to confirm account: ${error}`);
     }
   };
-
+https://v0.dev/chat/3lKd58OeoO3
 return (
 
   <div className="flex items-center justify-center min-h-screen bg-slate-800">

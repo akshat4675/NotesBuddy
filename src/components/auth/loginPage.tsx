@@ -1,6 +1,6 @@
 'use client'
 import { signIn, signUp } from './authService';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -139,6 +139,12 @@ export default function AuthPage() {
               </span>
             </Button>
           </div>
+          <Card>
+              <CardContent>
+              
+                <Label className='text-gray-400 text-xs'>Make sure the password has 1  uppercase letter, 1 lowercase letter, 1 number and 1 special character</Label>
+              </CardContent>
+            </Card>
         </div>
           
         )}
@@ -157,7 +163,7 @@ export default function AuthPage() {
       </div>
       <div className="hidden w-full md:block md:w-2/3">
         <img
-          src="src\assets\Images\study-7217599_1920.jpg"
+          src="src\assets\Images\study-7217599_1920.jpg "
           alt="Authentication illustration"
           className="h-full w-full object-cover"
         />
