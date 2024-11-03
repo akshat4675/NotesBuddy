@@ -44,8 +44,15 @@ const getUserId = (): string | null => {
 
 
 export async function getSubjects() {
+  const userId = getUserId();
+  if (!userId) throw new Error("User ID not found in session storage");
+
   const command = new ScanCommand({
     TableName: SUBJECT_TABLE_NAME,
+    FilterExpression: "userId = :userId",
+    ExpressionAttributeValues: marshall({
+      ":userId": userId,
+    }),
   });
 
   try {
@@ -57,16 +64,19 @@ export async function getSubjects() {
   }
 }
 
-  export async function addSubject(name: string) {
-    const userId = getUserId();
+
+export async function addSubject(name: string) {
+  const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
-    const command = new PutItemCommand({
-      TableName: SUBJECT_TABLE_NAME,
-      Item: marshall({
-        id: userId+Date.now().toString(),
-        name,
-      }),
-    });
+
+  const command = new PutItemCommand({
+    TableName: SUBJECT_TABLE_NAME,
+    Item: marshall({
+      id: `${userId}-${Date.now().toString()}`,
+      name,
+      userId, // Include userSub here for user-specific data
+    }),
+  });
 
   try {
     await dynamoClient.send(command);
@@ -77,12 +87,15 @@ export async function getSubjects() {
 }
 
 export async function getUnits(subjectId: string) {
+  const userId = getUserId();
+  if (!userId) throw new Error("User ID not found in session storage");
 
   const command = new ScanCommand({
     TableName: UNIT_TABLE_NAME,
-    FilterExpression: "subjectId = :subjectId",
+    FilterExpression: "subjectId = :subjectId AND userId = :userId",
     ExpressionAttributeValues: marshall({
       ":subjectId": subjectId,
+      ":userId": userId,
     }),
   });
 
@@ -96,7 +109,10 @@ export async function getUnits(subjectId: string) {
 }
 
 export async function addUnit(subjectId: string, name: string, file: File) {
-  const fileKey = `${subjectId}/${Date.now()}-${file.name}`;
+  const userId = getUserId();
+  if (!userId) throw new Error("User ID not found in session storage");
+
+  const fileKey = `${userId}/${subjectId}/${Date.now()}-${file.name}`; // Prefix S3 key with userId
 
   // Upload file to S3
   const uploadCommand = new PutObjectCommand({
@@ -108,14 +124,15 @@ export async function addUnit(subjectId: string, name: string, file: File) {
   try {
     await s3Client.send(uploadCommand);
 
-    // Add unit to DynamoDB
+    // Add unit to DynamoDB with userId
     const addUnitCommand = new PutItemCommand({
       TableName: UNIT_TABLE_NAME,
       Item: marshall({
-        id: Date.now().toString(),
+        id: `${userId}-${Date.now().toString()}`,
         subjectId,
         name,
         pdfUrl: `https://${S3_BUCKET_NAME}.s3.amazonaws.com/${fileKey}`,
+        userId, // Include userId for user-specific retrieval
       }),
     });
 
@@ -125,3 +142,4 @@ export async function addUnit(subjectId: string, name: string, file: File) {
     throw error;
   }
 }
+
