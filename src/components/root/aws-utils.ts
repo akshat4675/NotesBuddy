@@ -2,31 +2,38 @@ import { DynamoDBClient, PutItemCommand, ScanCommand } from "@aws-sdk/client-dyn
 import { S3Client, PutObjectCommand} from "@aws-sdk/client-s3";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 
-// Load environment variables
-const AWS_REGION = import.meta.env.VITE_AWS_REGION;
-const AWS_ACCESS_KEY_ID = import.meta.env.VITE_AWS_ACCESS_KEY_ID;
-const AWS_SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_SECRET_ACCESS_KEY;
+// Retrieve the stored token from sessionStorage
+ // Adjust key based on how you store the token
 
-if (!AWS_REGION || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) {
-  throw new Error("Missing AWS configuration. Please check your .env file.");
-}
+
+const idToken: string | null = sessionStorage.getItem('idToken');
+
+const identityClient = new CognitoIdentityClient({ region: 'ap-south-1' });
+
+const Credentials = fromCognitoIdentityPool({
+  client: identityClient,
+  identityPoolId: 'ap-south-1:0552001a-378b-4154-be28-84a0ea5b9f10',
+  logins: {
+    'cognito-idp.ap-south-1.amazonaws.com/ap-south-1_epWmiSTO9': idToken as string, // Assert idToken is a string
+  },
+});
+
+export default Credentials;
+
 
 const dynamoClient = new DynamoDBClient({
-  region: AWS_REGION,
-  credentials: {
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  },
+  region: 'ap-south-1',
+  credentials: Credentials,
 });
 
 const s3Client = new S3Client({
-  region: AWS_REGION,
-  credentials: {
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  },
+  region: 'ap-south-1',
+  credentials: Credentials,
 });
+
 
 
 const SUBJECT_TABLE_NAME = import.meta.env.VITE_SUBJECT_TABLE_NAME || "Subjects";

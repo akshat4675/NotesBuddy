@@ -10,35 +10,54 @@ import {
   ScanCommandOutput
 } from "@aws-sdk/lib-dynamodb";
 
-// Initialize DynamoDB client with environment variables for AWS credentials and region
-const client = new DynamoDBClient({
-  region: import.meta.env.VITE_AWS_REGION,
-  credentials: {
-    accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
-    secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+
+// Retrieve the stored token from sessionStorage
+ // Adjust key based on how you store the token
+
+
+const idToken: string | null = sessionStorage.getItem('idToken');
+
+const identityClient = new CognitoIdentityClient({ region: 'ap-south-1' });
+
+const Credentials = fromCognitoIdentityPool({
+  client: identityClient,
+  identityPoolId: 'ap-south-1:0552001a-378b-4154-be28-84a0ea5b9f10',
+  logins: {
+    'cognito-idp.ap-south-1.amazonaws.com/ap-south-1_epWmiSTO9': idToken as string, // Assert idToken is a string
   },
 });
 
+export default Credentials;
+
+// Initialize DynamoDB client using environment variables
+const client = new DynamoDBClient({
+  region: import.meta.env.VITE_AWS_REGION,
+  credentials: Credentials,
+});
+
+// Create DynamoDB Document client
 const docClient = DynamoDBDocumentClient.from(client);
 
-// Utility function to get userId from sessionStorage
+// Utility function to get userId from session storage
 const getUserId = (): string | null => {
   return sessionStorage.getItem("userSub") || null;
 };
 
-// Fetch an event by event ID for a specific user
+// Function to fetch an event by event ID for a specific user
 export const getEventById = async (id: string): Promise<GetCommandOutput> => {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
 
   const command = new GetCommand({
     TableName: "CalendarEvents",
-    Key: { userId, id }, // Partition key with userId
+    Key: { userId, id },
   });
   return await docClient.send(command);
 };
 
-// Add a new event for a specific user
+// Function to add a new event for a specific user
 export const addEvent = async (
   id: string,
   eventName: string,
@@ -49,19 +68,19 @@ export const addEvent = async (
 
   const command = new PutCommand({
     TableName: "CalendarEvents",
-    Item: { userId, id, eventName, date }, // Include userId in Item
+    Item: { userId, id, eventName, date },
   });
   return await docClient.send(command);
 };
 
-// Fetch all events for a specific user
+// Function to fetch all events for a specific user
 export const getAllEvents = async (): Promise<ScanCommandOutput> => {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
 
   const command = new ScanCommand({
     TableName: "CalendarEvents",
-    FilterExpression: "userId = :userId", // Filter for the specific userId
+    FilterExpression: "userId = :userId",
     ExpressionAttributeValues: {
       ":userId": userId,
     },
@@ -69,7 +88,7 @@ export const getAllEvents = async (): Promise<ScanCommandOutput> => {
   return await docClient.send(command);
 };
 
-// Delete an event by event name for a specific user
+// Function to delete an event by event name for a specific user
 export const deleteEventByName = async (
   eventName: string
 ): Promise<void> => {
@@ -79,8 +98,8 @@ export const deleteEventByName = async (
   const command = new DeleteCommand({
     TableName: "CalendarEvents",
     Key: {
-      userId,     // Partition key
-      eventName,         // Sort key if using both `userId` and `id` for uniqueness
+      userId,      
+      eventName,   
     },
     ConditionExpression: "eventName = :eventName",
     ExpressionAttributeValues: {

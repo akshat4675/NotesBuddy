@@ -1,3 +1,5 @@
+
+//Imports 
 'use client'
 import { signIn, signUp } from './authService';
 import { Eye, EyeOff, Mail, Lock} from 'lucide-react'
@@ -17,6 +19,8 @@ export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
 
+
+  //SignIn function
   const handleSignIn = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
@@ -36,6 +40,9 @@ export default function AuthPage() {
       alert(`Sign in failed: ${error}`);
     }
   };
+
+
+  //SignUp function
 
   const handleSignUp = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
