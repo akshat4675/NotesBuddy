@@ -1,5 +1,5 @@
 import "../globals.css";
-import { House, LogOut, NotebookPen, Menu, Calendar, Bell, BookOpen, ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
+import { House, LogOut, NotebookPen, Menu, Calendar, Bell, ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";

@@ -1,5 +1,5 @@
 import { DynamoDBClient, PutItemCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand} from "@aws-sdk/client-s3";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
 
@@ -28,6 +28,7 @@ const s3Client = new S3Client({
   },
 });
 
+
 const SUBJECT_TABLE_NAME = import.meta.env.VITE_SUBJECT_TABLE_NAME || "Subjects";
 const UNIT_TABLE_NAME = import.meta.env.VITE_UNIT_TABLE_NAME || "Units";
 const S3_BUCKET_NAME = import.meta.env.VITE_S3_BUCKET_NAME;
@@ -35,6 +36,12 @@ const S3_BUCKET_NAME = import.meta.env.VITE_S3_BUCKET_NAME;
 if (!S3_BUCKET_NAME) {
   throw new Error("Missing S3 bucket name. Please check your .env file.");
 }
+
+const getUserId = (): string | null => {
+  return sessionStorage.getItem("userSub") || null;
+};
+
+
 
 export async function getSubjects() {
   const command = new ScanCommand({
@@ -51,10 +58,12 @@ export async function getSubjects() {
 }
 
   export async function addSubject(name: string) {
+    const userId = getUserId();
+  if (!userId) throw new Error("User ID not found in session storage");
     const command = new PutItemCommand({
       TableName: SUBJECT_TABLE_NAME,
       Item: marshall({
-        id: Date.now().toString(),
+        id: userId+Date.now().toString(),
         name,
       }),
     });
@@ -68,6 +77,7 @@ export async function getSubjects() {
 }
 
 export async function getUnits(subjectId: string) {
+
   const command = new ScanCommand({
     TableName: UNIT_TABLE_NAME,
     FilterExpression: "subjectId = :subjectId",
@@ -115,4 +125,3 @@ export async function addUnit(subjectId: string, name: string, file: File) {
     throw error;
   }
 }
-

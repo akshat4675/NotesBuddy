@@ -2,7 +2,7 @@ import "../globals.css";
 import { House, LogOut, NotebookPen, DeleteIcon, Menu, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getAllEvents, addEvent, deleteEventByName } from "../root/dynamoDBService";
@@ -107,7 +107,9 @@ const Schedule = () => {
           <Card className="w-full max-w-md mx-auto">
             <CardHeader>
               <CardTitle>Schedule</CardTitle>
+              <CardDescription className=" flex text-slate-400 text-xs">Only you can see these events </CardDescription>  
             </CardHeader>
+            
             <CardContent>
               <div>
                 {events.length > 0 ? (
