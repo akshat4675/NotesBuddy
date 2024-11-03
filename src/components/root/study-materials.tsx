@@ -240,6 +240,7 @@ function AddSubjectDialog({ onAddSubject }: { onAddSubject: (name: string) => vo
               value={subjectName}
               onChange={(e) => setSubjectName(e.target.value)}
               placeholder="Enter subject name"
+              className="text-black"
             />
           </div>
           <DialogFooter>

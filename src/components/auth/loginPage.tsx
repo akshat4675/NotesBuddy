@@ -163,7 +163,7 @@ export default function AuthPage() {
       </div>
       <div className="hidden w-full md:block md:w-2/3">
         <img
-          src="src\assets\Images\study-7217599_1920.jpg "
+          src="https://testbucket4675.s3.ap-south-1.amazonaws.com/study-7217599_1920.jpg"
           alt="Authentication illustration"
           className="h-full w-full object-cover"
         />

@@ -81,27 +81,14 @@ const HomePage = () => {
       </div>  
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
-        
-        <div className="p-32 w-auto bg-black-400">
-          
-
-          {/* Recommended Study Materials */}
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>To Do list and Progress</CardTitle>
-              
-            </CardHeader>
-            <CardContent>
-              
-            </CardContent>
-          </Card>
-
-          
+        <header className="bg-black shadow-sm">
+          <div className="flex items-center justify-between px-4 py-3">
+            <h1 className="text-xl font-semibold">HomePage</h1>
+          </div>
+        </header>
 
           {/* Upcoming Exams/Deadlines */}
-          <div>
-            
-            <Card className="w-full max-w-auto mx-auto">
+            <Card className="w-full max-w-md mx-auto">
             <CardHeader>
               <CardTitle>Upcoming events </CardTitle>
             </CardHeader>
@@ -127,14 +114,20 @@ const HomePage = () => {
       </div>
       </CardContent>
       </Card>
-     
+      <br></br>
+      <Card className="w-full max-w-md mx-auto">
+            <CardHeader>
+              <CardTitle> Notice Board</CardTitle>
+            </CardHeader>
+              <CardContent>
+                <div>
       
-    </div>
-
-        </div>
+                </div>
+      </CardContent>
+      </Card>
       </main>
     </div>
-    
+
   );
 };
 

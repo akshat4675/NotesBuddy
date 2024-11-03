@@ -109,7 +109,6 @@ const Schedule = () => {
               <CardTitle>Schedule</CardTitle>
               <CardDescription className=" flex text-slate-400 text-xs">Only you can see these events </CardDescription>  
             </CardHeader>
-            
             <CardContent>
               <div>
                 {events.length > 0 ? (
