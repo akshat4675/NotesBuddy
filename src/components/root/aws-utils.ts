@@ -119,7 +119,7 @@ export async function addUnit(subjectId: string, name: string, file: File) {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
 
-  const fileKey = `${userId}/${subjectId}/${Date.now()}-${file.name}`; // Prefix S3 key with userId
+  const fileKey = `${userId}/${subjectId}/${file.name}`; // Prefix S3 key with userId
 
   // Upload file to S3
   const uploadCommand = new PutObjectCommand({
