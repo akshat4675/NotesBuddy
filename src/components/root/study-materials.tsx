@@ -90,7 +90,7 @@ const StudyMaterialsPage = () => {
         <header className=" pt-5">
          <div className="flex items-center justify-center h-10 ">
           <NotebookPen className="h-6 w-6 text-blue-600" />
-          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
+          <Label className="ml-2 text-5xl text-sky-950 pt-10 font-semibold ">StudyBuddy</Label>
         </div>
         </header>
         <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
