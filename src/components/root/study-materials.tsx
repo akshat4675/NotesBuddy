@@ -8,7 +8,7 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/component
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { useState, useEffect } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { DialogHeader, DialogFooter } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { getSubjects, addSubject, getUnits, addUnit } from "./aws-utils";
@@ -96,13 +96,14 @@ const StudyMaterialsPage = () => {
         <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
         <SideBarfunction/>
         </div>
-      <>
-        <div className="pt-16 grid grid-cols-1 gap-2  justify-items-center">
+        <div className="grid md:grid-cols-2   ">
+        <div className=" justify-items-center">
         <div>
-        <h1 className="text-5xl font-bold text-blue-950 pt-10">Study Materials</h1>
+        <h1 className="text-4xl font-bold pt-10 text-blue-950 ">Study Materials</h1>
         <h2 className="text-m pb-5 text-blue-950">Your Subjects and units </h2>
         </div>
-        <div className="pr-14 ">
+        
+        <div className="">
         {loading ? (
         <p>Loading subjects...</p>
         ) : (
@@ -113,12 +114,37 @@ const StudyMaterialsPage = () => {
         </>
         )}
         </div>
-         <div className="pt-6">
+         <div className="pt-9">
         <AddSubjectDialog onAddSubject={handleAddSubject} />
         </div>
       </div>
-      
-      </>
+      <div className="pt-9">
+        <Card className="justify-center border-transparent bg-transparent">
+          <CardContent>
+          <div>
+        <h1 className="text-4xl font-bold  text-blue-950 ">Assignments</h1>
+        <h2 className="text-m pb-5 text-blue-950">Your Assignments and deadlines </h2>
+        </div>
+        
+        <div className="">
+        {loading ? (
+        <p>Loading subjects...</p>
+        ) : (
+        <>
+          {subjects.map((subject) => (
+            <SubjectCard key={subject.id} subject={subject} />
+          ))}
+        </>
+        )}
+        </div>
+         <div className="pt-9">
+        <AddSubjectDialog onAddSubject={handleAddSubject} />
+        </div>
+
+          </CardContent>
+        </Card>
+      </div>
+      </div>
       </main>
     </div>
   );
@@ -148,6 +174,8 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
     }
   };
 
+  
+
   const handleAddUnit = async (name: string, file: File) => {
     try {
       await addUnit(subject.id, name, file);
@@ -170,12 +198,11 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
   }, [isOpen]);
 
   return (
-    <Card className="bg-transparent bg-white bg-opacity-20 justify-items-center">
-      <CardHeader>
-        <CardTitle>
+      <div className="pt-2">
+    <Card className="bg-transparent border-transparent  justify-items-center">
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" className=" text-3xl hover:bg-transparent font-extrabold text-teal-950 justify-between items-center">
+              <Button variant="ghost" className=" text-xl hover:bg-transparent font-extrabold text-teal-950 justify-between items-center">
                 <span>{subject.name}</span>
                 {isOpen ? <ChevronDown className="" /> : <ChevronRight className="" />}
               </Button>
@@ -204,15 +231,13 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
                       <AddUnitDialog onAddUnit={handleAddUnit} />
                       </li>
                     </ul>
-                    
                   </>
                 )}
               </CardContent>
             </CollapsibleContent>
-          </Collapsible>
-        </CardTitle>
-      </CardHeader>
+          </Collapsible>  
     </Card>
+    </div>
   );
 };
 
@@ -228,7 +253,7 @@ function AddSubjectDialog({ onAddSubject }: { onAddSubject: (name: string) => vo
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className=" bg-white bg-opacity-20 text-xl font-extrabold hover:bg-white text-teal-950">
+        <Button className="flex bg-white bg-opacity-20 text-xl font-extrabold hover:bg-white text-teal-950">
           <Plus className="" />
           Add Subject
         </Button>
