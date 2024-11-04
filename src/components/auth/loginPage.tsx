@@ -2,7 +2,7 @@
 //Imports 
 'use client'
 import { signIn, signUp } from './authService';
-import { Eye, EyeOff, Mail, Lock} from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, BookOpen} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -61,11 +61,17 @@ export default function AuthPage() {
   return (
     <>
     <div className="flex min-h-screen flex-col md:flex-row">
-    <div className="flex w-full items-center justify-center bg-black-100 p-8 md:w-1/3">
-        <Card className="w-full max-w-md">
+      <div className="flex w-full items-center justify-center bg-sky-100  p-8 md:w-1/3">
+        <Card className="w-full bg-sky-200 max-w-md">
           <CardHeader>
-            <CardTitle className=" text-2xl font-bold text-center">{isSignUp ? 'Sign up' : 'Sign in'}</CardTitle>
-            <CardDescription className='text-center'>Enter your Credentials</CardDescription>
+          <div className="flex items-center space-x-2 mb-4">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+            <BookOpen className="text-primary-foreground text-blue-500 w-7 h-8" />
+          </div>
+          <span className="text-xl font-semibold">StudyBuddy</span>
+        </div>
+          <CardTitle className=" text-2xl font-bold">{isSignUp ? 'Sign up' : 'Sign in'}</CardTitle>
+          <CardDescription className='text-s   text-blue-950'>Enter your Credentials</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={isSignUp ? handleSignUp : handleSignIn} className="space-y-4">
@@ -78,10 +84,10 @@ export default function AuthPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="bg-gray-800 pl-10 text-white placeholder:text-gray-400"
+                    className="bg-gray-500 pl-10 text-white placeholder:text-black"
                     required
                   />
-                  <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-3 h-5 w-5 text-black" />
                 </div>
               </div>
               <div className="space-y-2">
@@ -93,10 +99,10 @@ export default function AuthPage() {
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="bg-gray-800 pl-10 text-white placeholder:text-gray-400"
+                    className="bg-gray-500 pl-10 text-white placeholder:text-black"
                     required
                   />
-                  <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Lock className="absolute left-3 top-3 h-5 w-5 text-black" />
                   <Button
                     type="button"
                     variant="ghost"
@@ -105,9 +111,9 @@ export default function AuthPage() {
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-gray-400" />
+                      <EyeOff className="h-5 w-5 text-black" />
                     ) : (
-                      <Eye className="h-5 w-5 text-gray-400" />
+                      <Eye className="h-5 w-5 text-black" />
                     )}
                     <span className="sr-only">
                       {showPassword ? 'Hide password' : 'Show password'}
@@ -125,21 +131,21 @@ export default function AuthPage() {
               placeholder="Confirm password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="bg-gray-800 pl-10 text-white placeholder:text-gray-400"
+              className="bg-gray-500 pl-10 text-white placeholder:text-black"
               required
             />
-            <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            <Lock className="absolute left-3 top-3 h-5 w-5 text-black" />
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+              className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-black"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <EyeOff className="h-5 w-5 text-gray-400" />
+                <EyeOff className="h-5 w-5 text-black" />
               ) : (
-                <Eye className="h-5 w-5 text-gray-400" />
+                <Eye className="h-5 w-5 text-black" />
               )}
               <span className="sr-only">
                 {showPassword ? 'Hide password' : 'Show password'}
@@ -155,13 +161,13 @@ export default function AuthPage() {
         </div>
           
         )}
-              <Button type="submit" className="w-full bg-gray-800 text-white hover:bg-gray-700">
+              <Button type="submit" className="w-full bg-rose-400 text-white hover:bg-black">
               {isSignUp ? 'Sign Up' : 'Sign In'}
               </Button>
             </form>
           </CardContent>
           <CardFooter>
-          <Button variant={"secondary"} className="w-full" onClick={() => setIsSignUp(!isSignUp)}>
+          <Button  variant={"ghost"} className="w-full" onClick={() => setIsSignUp(!isSignUp)}>
         {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
       </Button>
             

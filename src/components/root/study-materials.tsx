@@ -1,5 +1,5 @@
 import "../globals.css";
-import { House, LogOut, NotebookPen, Menu, Calendar, Bell, ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
+import { House, LogOut, NotebookPen, Menu, Calendar, ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -73,15 +73,12 @@ const StudyMaterialsPage = () => {
     <div className="flex h-screen bg-black">
       {/* Sidebar */}
       <div className="flex min-h-screen bg-background">
-        <aside className="hidden w-64 border-r bg-muted/40 lg:block">
-          <SideBarfunction />
-        </aside>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="lg:hidden">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle sidebar</span>
-            </Button>
+          <Button variant="ghost" size="icon" >
+            <Menu className="h-6 w-6" />
+            <span className="sr-only">Toggle sidebar</span>
+          </Button>
           </SheetTrigger>
           <SheetContent side="left" className="bg-black w-64 p-0">
             <SideBarfunction />
@@ -91,13 +88,12 @@ const StudyMaterialsPage = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
         <header className="bg-black shadow-sm">
-          <div className="flex items-center justify-between px-4 py-3">
-            <h1 className="text-xl font-semibold">Study Materials</h1>
-            <Button variant="ghost" size="icon">
-              <Bell className="h-6 w-6" />
-            </Button>
-          </div>
+         <div className="flex items-center justify-center h-16 border-b">
+          <NotebookPen className="h-6 w-6 text-blue-600" />
+          <Label className="ml-2 text-xl font-semibold">StudyBuddy</Label>
+        </div>
         </header>
+        <br></br> 
 
         <div className="p-6">
         <>
