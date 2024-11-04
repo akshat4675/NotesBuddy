@@ -10,7 +10,8 @@
   }
 
   body {
-    @apply bg-white text-off-white min-h-screen font-inter;
+    @apply bg-[url('src/assets/images/book3.jpg')]  bg-scroll bg-cover text-off-white h-svh font-inter;
+    
   }
 }
 

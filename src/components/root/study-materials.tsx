@@ -1,5 +1,5 @@
 import "../globals.css";
-import { House, LogOut, NotebookPen, Menu, Calendar, ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
+import { House, LogOut, NotebookPen, Menu, Calendar, ChevronDown, ChevronRight, FileText, Plus, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -12,6 +12,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { DialogHeader, DialogFooter } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { getSubjects, addSubject, getUnits, addUnit } from "./aws-utils";
+import { Tooltip, TooltipContent, TooltipProvider ,TooltipTrigger} from "../ui/tooltip";
+
 
 type Subject = {
   id: string; // Use 'number' if id is a number
@@ -70,50 +72,53 @@ const StudyMaterialsPage = () => {
    };
 
   return (
-    <div className="flex h-screen bg-black">
+    <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="flex min-h-screen bg-background">
-        <Sheet>
+      <div className="flex min-h-screen">
+      <Sheet>
           <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" >
-            <Menu className="h-6 w-6" />
-            <span className="sr-only">Toggle sidebar</span>
-          </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="bg-black w-64 p-0">
-            <SideBarfunction />
+           <Button variant="default" className="lg:hidden flex bg-transparent hover:bg-slate-500 " size="icon" >
+            <Menu className=" text-blue-950 " />
+           </Button>
+          </SheetTrigger> 
+          <SheetContent side="left" className="bg-black h-full w-auto overflow-hidden ">
+           <SideBarfunction2/>
           </SheetContent>
         </Sheet>
       </div>
-      {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
-        <header className="bg-black shadow-sm">
-         <div className="flex items-center justify-center h-16 border-b">
+        <header className=" pt-5">
+         <div className="flex items-center justify-center h-10 ">
           <NotebookPen className="h-6 w-6 text-blue-600" />
-          <Label className="ml-2 text-xl font-semibold">StudyBuddy</Label>
+          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
         </div>
         </header>
-        <br></br> 
-
-        <div className="p-6">
-        <>
-        <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Study Materials</h1>
-        <AddSubjectDialog onAddSubject={handleAddSubject} />
-      </div>
-      {loading ? (
+        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
+        <SideBarfunction/>
+        </div>
+      <>
+        <div className="pt-16 grid grid-cols-1 gap-2 pr-64 justify-items-center">
+        <div>
+        <h1 className="text-5xl font-bold text-blue-950 pt-10">Study Materials</h1>
+        <h2 className="text-m pb-5 text-blue-950">Your Subjects and units </h2>
+        </div>
+        <div className="pr-14 ">
+        {loading ? (
         <p>Loading subjects...</p>
-      ) : (
-        <div className="grid gap-4">
+        ) : (
+        <>
           {subjects.map((subject) => (
             <SubjectCard key={subject.id} subject={subject} />
           ))}
-        </div>
-      )}
-    </div>
         </>
+        )}
         </div>
+         <div className="pt-6">
+        <AddSubjectDialog onAddSubject={handleAddSubject} />
+        </div>
+      </div>
+      
+      </>
       </main>
     </div>
   );
@@ -165,14 +170,14 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
   }, [isOpen]);
 
   return (
-    <Card>
+    <Card className="bg-transparent bg-white bg-opacity-20 justify-items-center">
       <CardHeader>
         <CardTitle>
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" className="w-full flex justify-between items-center">
+              <Button variant="ghost" className=" text-3xl hover:bg-transparent font-extrabold text-teal-950 pr-12 justify-between items-center">
                 <span>{subject.name}</span>
-                {isOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                {isOpen ? <ChevronDown className="" /> : <ChevronRight className="" />}
               </Button>
             </CollapsibleTrigger>
             <CollapsibleContent>
@@ -183,7 +188,7 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
                   <>
                     <ul className="space-y-2 mb-4">
                       {units.map((unit) => (
-                        <li key={unit.id} className="flex items-center gap-2">
+                        <li key={unit.id} className=" flex items-center gap-2 pt-5 ">
                           <FileText className="h-4 w-4 text-muted-foreground" />
                           <a
                             href={unit.pdfUrl}
@@ -195,8 +200,11 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
                           </a>
                         </li>
                       ))}
+                      <li className=" flex items-center gap-2 pt-5 ">
+                      <AddUnitDialog onAddUnit={handleAddUnit} />
+                      </li>
                     </ul>
-                    <AddUnitDialog onAddUnit={handleAddUnit} />
+                    
                   </>
                 )}
               </CardContent>
@@ -220,12 +228,12 @@ function AddSubjectDialog({ onAddSubject }: { onAddSubject: (name: string) => vo
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
+        <Button className="flex pr-64 bg-transparent text-xl font-extrabold hover:bg-transparent text-teal-950">
+          <Plus className="" />
           Add Subject
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="bg-white sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-black">Add New Subject</DialogTitle>
         </DialogHeader>
@@ -270,8 +278,8 @@ function AddUnitDialog({ onAddUnit }: { onAddUnit: (name: string, file: File) =>
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Plus className="h-4 w-4 mr-2" />
+        <Button variant="secondary" className="font-extrabold text-xl hover:bg-transparent bg-transparent border-transparent" size="sm">
+          <Plus className="" />
           Add Unit
         </Button>
       </DialogTrigger>
@@ -299,61 +307,147 @@ function AddUnitDialog({ onAddUnit }: { onAddUnit: (name: string, file: File) =>
             />
           </div>
           <Button type="submit">Add Unit</Button>
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
         </form>
+        
       </DialogContent>
+      
     </Dialog>
   );
 }
 
-
-function SideBarfunction() {
+function SideBarfunction2(){
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
     sessionStorage.clear();
     navigate('/login');
   };
-
-  const home = () => {
-    navigate('/home');
-  };
-
-  const schedul = () => {
+  const studymaterial =()=>
+    {
+      navigate('/home');
+    }
+  const schedul =()=>{
     navigate('/schedule');
-  };
+  }
+  
 
-  return (
+
+  return(
+    <>
     <div className="flex h-full flex-col">
-      <div className="flex items-center justify-center h-16 border-b">
-        <NotebookPen className="h-6 w-6 text-blue-600" />
-        <span className="ml-2 text-xl font-semibold">StudyBuddy</span>
-      </div>
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="p-2 space-y-1">
-          <li>
-            <Button onClick={home} variant="ghost" className="w-full justify-start">
-              <House className="mr-2 h-4 w-4" />
-              Home
+          <div className="flex items-center bg-black justify-center h-16 ">
+            <NotebookPen className="h-6 w-6 text-blue-600" />
+            <span className="ml-2 text-xl text-sky-200 font-semibold">StudyBuddy</span>
+          </div>
+          <nav className="flex-1 overflow-y-auto">
+            <ul className="p-2 space-y-1">
+              <li>
+                <Button onClick={studymaterial} variant="ghost" className="  text-sky-200  w-full justify-start">
+                  <BookOpen  className="mr-2 h-4 w-4" />
+                  
+                  Home
+                </Button>
+              </li>
+              <li>
+                <Button onClick={schedul} variant="ghost" className=" text-sky-200   w-full justify-start">
+                  <Calendar className="mr-2 h-4 w-4" /> 
+                  Schedule
+                </Button>
+              </li>
+            </ul>
+          </nav>
+          <div className="p-4">
+            <Button variant={"secondary"} onClick={handleLogout} className="bg-rose-100 w-full">
+              <LogOut className=" mr-2 h-4 w-4 " />
+              Log out
             </Button>
-          </li>
-          <li>
-            <Button onClick={schedul} variant="ghost" className="w-full justify-start">
-              <Calendar className="mr-2 h-4 w-4" />
-              Schedule
-            </Button>
-          </li>
-        </ul>
-      </nav>
-      <div className="p-4 border-t">
-        <Button variant="outline" onClick={handleLogout} className="bg-black w-full">
-          <LogOut className="mr-2 h-4 w-4" />
-          Log out
-        </Button>
-      </div>
-    </div>
-  );
+          </div>
+        </div>
+    </>
+  )
 }
 
+function SideBarfunction(){
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate('/login');
+  };
+  const Home =()=>
+    {
+      navigate('/home');
+    }
+  const schedul =()=>{
+    navigate('/schedule');
+  }
+  
+
+
+  return(
+    <>
+    <div className="flex h-full flex-col">
+          <div className="flex items-center justify-center h-16 ">
+            <NotebookPen className="h-6 w-6 text-blue-600 " />
+          </div>
+          <nav className="flex-1 overflow-y-auto">
+            <ul className="p-1 space-y-1">
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={Home} variant="ghost" className=" text-sky-200 justify-start">
+                <House  className="" />
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Home</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+                  
+              </li>
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={schedul} variant="ghost" className=" text-sky-200 justify-start">
+                  <Calendar className=" h-2 w-2" /> 
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Schedule</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+              </li>
+            </ul>
+          </nav>
+          <div className="p-3">
+          <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button variant={"secondary"} onClick={handleLogout} className="text-xs bg-rose-100 w-full">
+              <LogOut className="h-2 w-2 size-1/2" />
+            </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Logout</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+          </div>
+        </div>
+    </>
+  )
+}
 
 
 export default StudyMaterialsPage;

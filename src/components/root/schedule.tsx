@@ -1,5 +1,5 @@
 import "../globals.css";
-import { House, LogOut, NotebookPen, DeleteIcon, Menu, Calendar } from "lucide-react";
+import { House, LogOut, NotebookPen, DeleteIcon, Menu, Calendar, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { getAllEvents, addEvent, deleteEventByName } from "../root/dynamoDBServi
 import { ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Tooltip, TooltipContent, TooltipProvider ,TooltipTrigger} from "../ui/tooltip";
 
 // Define event structure
 interface Event {
@@ -77,36 +78,36 @@ const Schedule = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="flex h-screen bg-black">
+    <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="flex min-h-screen bg-background">
-        <Sheet>
+      <div className="flex min-h-screen">
+      <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle sidebar</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="bg-black w-64 p-0">
-            <SideBarFunction />
+           <Button variant="default" className="lg:hidden flex bg-transparent hover:bg-slate-500 " size="icon" >
+            <Menu className=" text-blue-950 " />
+           </Button>
+          </SheetTrigger> 
+          <SheetContent side="left" className="bg-black h-full w-auto overflow-hidden ">
+           <SideBarfunction2/>
           </SheetContent>
         </Sheet>
       </div>
-
-      {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
-        <header className="bg-black shadow-sm">
-         <div className="flex items-center justify-center h-16 border-b">
+        <header className=" pt-5">
+         <div className="flex items-center justify-center h-10 ">
           <NotebookPen className="h-6 w-6 text-blue-600" />
-          <Label className="ml-2 text-xl font-semibold">StudyBuddy</Label>
+          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
         </div>
         </header>
-        <br></br>
-        <div>
-          <Card className="w-full max-w-md mx-auto">
+        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
+        <SideBarfunction/>
+        </div>
+        <div className="pt-16">
+          
+          <Card className="w-full bg-white bg-opacity-20 max-w-md mx-auto">
             <CardHeader>
-              <CardTitle>Schedule</CardTitle>
-              <CardDescription className=" flex text-slate-400 text-xs">Only you can see these events </CardDescription>  
+              <CardTitle className="text-center">Schedule</CardTitle>
+              <CardDescription className=" text-slate-400 text-xs text-center">Only you can see these events </CardDescription>  
             </CardHeader>
             <CardContent>
               <div>
@@ -163,52 +164,135 @@ const Schedule = () => {
   );
 };
 
-function SideBarFunction() {
+
+
+function SideBarfunction2(){
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
     sessionStorage.clear();
-    navigate("/login");
+    navigate('/login');
   };
-  const goToHome = () => {
-    navigate("/home");
-  };
-  const goToStudyMaterials = () => {
-    navigate("/studymaterials");
-  };
+  const home =()=>
+    {
+      navigate('/home');
+    }
+  const studymaterials =()=>{
+    navigate('/studymaterials');
+  }
+  
 
-  return (
+
+  return(
     <>
-      <div className="flex h-full flex-col">
-        <div className="flex items-center justify-center h-16 border-b">
-          <NotebookPen className="h-6 w-6 text-blue-600" />
-          <span className="ml-2 text-xl font-semibold">StudyBuddy</span>
+    <div className="flex h-full flex-col">
+          <div className="flex items-center bg-black justify-center h-16 ">
+            <NotebookPen className="h-6 w-6 text-blue-600" />
+            <span className="ml-2 text-xl text-sky-200 font-semibold">StudyBuddy</span>
+          </div>
+          <nav className="flex-1 overflow-y-auto">
+            <ul className="p-2 space-y-1">
+              <li>
+                <Button onClick={home} variant="ghost" className="  text-sky-200  w-full justify-start">
+                  <BookOpen  className="mr-2 h-4 w-4" />
+                  
+                  Home
+                </Button>
+              </li>
+              <li>
+                <Button onClick={studymaterials} variant="ghost" className=" text-sky-200   w-full justify-start">
+                  <Calendar className="mr-2 h-4 w-4" /> 
+                  Study Materials
+                </Button>
+              </li>
+            </ul>
+          </nav>
+          <div className="p-4">
+            <Button variant={"secondary"} onClick={handleLogout} className="bg-rose-100 w-full">
+              <LogOut className=" mr-2 h-4 w-4 " />
+              Log out
+            </Button>
+          </div>
         </div>
-        <nav className="flex-1 overflow-y-auto">
-          <ul className="p-2 space-y-1">
-            <li>
-              <Button onClick={goToHome} variant="ghost" className="w-full justify-start">
-                <House className="mr-2 h-4 w-4" />
-                Home
-              </Button>
-            </li>
-            <li>
-              <Button onClick={goToStudyMaterials} variant="ghost" className="w-full justify-start">
-                <Calendar className="mr-2 h-4 w-4" />
-                Study Materials
-              </Button>
-            </li>
-          </ul>
-        </nav>
-        <div className="p-4 border-t">
-          <Button variant="outline" onClick={handleLogout} className="bg-black w-full">
-            <LogOut className="mr-2 h-4 w-4" />
-            Log out
-          </Button>
-        </div>
-      </div>
     </>
-  );
+  )
+}
+
+function SideBarfunction(){
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate('/login');
+  };
+  const Home =()=>
+    {
+      navigate('/home');
+    }
+  const studymaterials =()=>{
+    navigate('/studymaterials');
+  }
+  
+
+
+  return(
+    <>
+    <div className="flex h-full flex-col">
+          <div className="flex items-center justify-center h-16 ">
+            <NotebookPen className="h-6 w-6 text-blue-600 " />
+          </div>
+          <nav className="flex-1 overflow-y-auto">
+            <ul className="p-1 space-y-1">
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={Home} variant="ghost" className=" text-sky-200 justify-start">
+                <House  className="" />
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Home</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+                  
+              </li>
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={studymaterials} variant="ghost" className=" text-sky-200 justify-start">
+                  <BookOpen className=" h-2 w-2" /> 
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Study Materials</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+              </li>
+            </ul>
+          </nav>
+          <div className="p-3">
+          <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button variant={"secondary"} onClick={handleLogout} className="text-xs bg-rose-100 w-full">
+              <LogOut className="h-2 w-2 size-1/2" />
+            </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Logout</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+          </div>
+        </div>
+    </>
+  )
 }
 
 export default Schedule;
