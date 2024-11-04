@@ -87,17 +87,17 @@ const StudyMaterialsPage = () => {
         </Sheet>
       </div>
       <main className="flex-1 overflow-y-auto">
-        <header className=" pt-5">
+      <header className=" pt-5">
          <div className="flex items-center justify-center h-10 ">
           <NotebookPen className="h-6 w-6 text-blue-600" />
-          <Label className="ml-2 text-5xl text-sky-950 pt-10 font-semibold ">StudyBuddy</Label>
+          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
         </div>
         </header>
         <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
         <SideBarfunction/>
         </div>
       <>
-        <div className="pt-16 grid grid-cols-1 gap-2 pr-64 justify-items-center">
+        <div className="pt-16 grid grid-cols-1 gap-2  justify-items-center">
         <div>
         <h1 className="text-5xl font-bold text-blue-950 pt-10">Study Materials</h1>
         <h2 className="text-m pb-5 text-blue-950">Your Subjects and units </h2>
@@ -175,7 +175,7 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
         <CardTitle>
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" className=" text-3xl hover:bg-transparent font-extrabold text-teal-950 pr-12 justify-between items-center">
+              <Button variant="ghost" className=" text-3xl hover:bg-transparent font-extrabold text-teal-950 justify-between items-center">
                 <span>{subject.name}</span>
                 {isOpen ? <ChevronDown className="" /> : <ChevronRight className="" />}
               </Button>
@@ -228,7 +228,7 @@ function AddSubjectDialog({ onAddSubject }: { onAddSubject: (name: string) => vo
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex pr-64 bg-transparent text-xl font-extrabold hover:bg-transparent text-teal-950">
+        <Button className=" bg-white bg-opacity-20 text-xl font-extrabold hover:bg-white text-teal-950">
           <Plus className="" />
           Add Subject
         </Button>

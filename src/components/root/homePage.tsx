@@ -4,18 +4,19 @@ import { Button } from "@/components/ui/button"
 import {  useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider ,TooltipTrigger} from "../ui/tooltip";
+import { Label } from "../ui/label";
 
 
 const HomePage = () => {
 
   return (
-    <>
-    <header className= " pt-2 ">
-      <div className="items-center justify-center h-16 ">
-        <Sheet>
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <div className="flex min-h-screen">
+      <Sheet>
           <SheetTrigger asChild>
-           <Button variant="default" className="lg:hidden flex bg-transparent hover:bg-slate-500 " size="icon" >
-            <Menu className=" text-blue-950 " />
+           <Button variant="default" className="lg:hidden absolute top-0 right-0 h-16 w-16 bg-transparent hover:bg-sky-100  ">
+            <Menu className=" text-blue-950" />
            </Button>
           </SheetTrigger> 
           <SheetContent side="left" className="bg-black h-full w-auto overflow-hidden ">
@@ -23,11 +24,21 @@ const HomePage = () => {
           </SheetContent>
         </Sheet>
       </div>
-    </header>
-    <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
-      <SideBarfunction/>
+      <main className="flex-1 overflow-y-auto">
+      <header className=" pt-5">
+         <div className="flex items-center justify-center h-10 ">
+          <NotebookPen className="size-9 text-blue-600" />
+          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
+        </div>
+        </header>
+        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
+        <SideBarfunction/>
+        </div>
+      <>
+        
+      </>
+      </main>
     </div>
-     </>
   );
 };
 
