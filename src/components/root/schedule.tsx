@@ -1,11 +1,11 @@
-import "../globals.css";
+import "@/globals.css";
 import { House, LogOut, NotebookPen, DeleteIcon, Menu, Calendar, BookOpen, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getAllEvents, addEvent, deleteEventByName } from "../root/dynamoDBService";
+import { getAllEvents, addEvent, deleteEventByName } from "./Funtions/dynamoDBService";
 import { ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -19,6 +19,47 @@ interface Event {
 }
 
 const Schedule = () => {
+  
+  return (
+    <>
+    <div className="h-screen">
+    <header className="fixed top-0 left-0 right-0 h-16 bg-transparent  z-10 flex items-center justify-center">
+      <div className="flex  items-center space-x-2">
+          <NotebookPen className="size-9 text-blue-600 " />
+          <h1 className="text-3xl font-bold text-sky-950 ">StudyBuddy</h1>
+      </div>
+        <Sheet>
+          <SheetTrigger asChild>
+           <Button variant="secondary" className="lg:hidden bg-transparent hover:bg-sky-100  ">
+           <Menu className=" text-blue-950  " />
+           </Button>
+          </SheetTrigger> 
+          <SheetContent side="left" className=" bg-black h-full w-auto overflow-hidden ">
+           <SideBarfunction2/>
+          </SheetContent>
+        </Sheet>
+        </header>
+        <div className="pt-16">
+        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
+        <SideBarfunction/>
+        </div>
+        </div>
+        <div className="lg:justify-items-center pt-16 grid grid-cols-1 ">
+          <div>
+            <Card className=" lg:w-[700px] md:mx-10 bg-sky-100 text-center bg-opacity-40  ">
+              <ScheduleCard/>
+            </Card>
+          </div>
+        </div> 
+        </div>  
+        </> 
+  );
+};
+
+
+const ScheduleCard =()=> {
+
+
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,36 +118,14 @@ const Schedule = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
+
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="flex min-h-screen">
-      <Sheet>
-          <SheetTrigger asChild>
-           <Button variant="default" className="lg:hidden flex bg-transparent hover:bg-slate-500 " size="icon" >
-            <Menu className=" text-blue-950 " />
-           </Button>
-          </SheetTrigger> 
-          <SheetContent side="left" className="bg-black h-full w-auto overflow-hidden ">
-           <SideBarfunction2/>
-          </SheetContent>
-        </Sheet>
-      </div>
-      <main className="flex-1 overflow-y-auto">
-        <header className=" pt-5">
-         <div className="flex items-center justify-center h-10 ">
-          <NotebookPen className="h-6 w-6 text-blue-600" />
-          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
-        </div>
-        </header>
-        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
-        <SideBarfunction/>
-        </div>
-        <div className="pt-16">
-          <Card className="w-full bg-white bg-opacity-20 max-w-md mx-auto">
+    <>
+    <div >
+          <Card className="bg-transparent border-transparent">
             <CardHeader>
               <CardTitle className="text-center">Schedule</CardTitle>
-              <CardDescription className=" text-slate-400 text-xs text-center">Only you can see these events </CardDescription>  
+              <CardDescription className=" text-slate-400 text-xs text-center">Reminders , deadlines , etc... </CardDescription>  
             </CardHeader>
             <CardContent>
               <div>
@@ -117,7 +136,7 @@ const Schedule = () => {
                         className="flex justify-between items-center bg-muted p-2 rounded"
                         key={event.id}
                       >
-                        <Label className="font-medium">{event.eventName}</Label>
+                        <Label className="font-bold text-lg">{event.eventName}</Label>
                         <Label className="ml-2 text-sm text-muted-foreground">
                           {event.date}
                         </Label>
@@ -131,39 +150,40 @@ const Schedule = () => {
                   <p>No events found.</p>
                 )}
               </div>
-            </CardContent>
-            <CardFooter>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid pt-5 grid-cols-2 gap-2">
                 <div>
-                  <Label>Add New Event</Label>
+                  <Label className="flex" >Add New Event</Label>
                   <Input
                     type="text"
                     placeholder="Event Name"
                     value={newEventName}
                     onChange={(e) => setNewEventName(e.target.value)}
+                    className="bg-opacity-20 font-bold text-teal-950"
                   />
                 </div>
                 <div>
-                  <Label>Date</Label>
+                  <Label className="flex" >Date</Label>
                   <Input
                     type="date"
                     value={newEventDate}
                     onChange={(e) => setNewEventDate(e.target.value)}
+                    className="bg-opacity-20  text-teal-950"
                   />
                 </div>
+                </div>
+            </CardContent>
+            <CardFooter>
+              
                 <Button className="w-full" onClick={handleAddEvent}>
                   Add Event
                 </Button>
-              </div>
+
             </CardFooter>
           </Card>
         </div>
-      </main>
-    </div>
-  );
+    </>
+  )
 };
-
-
 
 function SideBarfunction2(){
   

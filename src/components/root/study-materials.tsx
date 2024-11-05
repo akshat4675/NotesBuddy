@@ -1,4 +1,4 @@
-import "../globals.css";
+import "@/globals.css";
 import { House, LogOut, NotebookPen, Menu, Calendar, ChevronDown, ChevronRight, FileText, Plus, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "../ui/card";
 import { DialogHeader, DialogFooter } from "../ui/dialog";
 import { Input } from "../ui/input";
-import { getSubjects, addSubject, getUnits, addUnit } from "./PdfuploadF";
+import { getSubjects, addSubject, getUnits, addUnit } from "./Funtions/PdfuploadF";
 import { Tooltip, TooltipContent, TooltipProvider ,TooltipTrigger} from "../ui/tooltip";
 
 
@@ -28,6 +28,47 @@ type Unit = {
 
 
 const StudyMaterialsPage = () => {
+
+  
+
+  return (
+    <>
+    <div className="h-screen">
+    <header className="fixed top-0 left-0 right-0 h-16 bg-transparent  z-10 flex items-center justify-center">
+      <div className="flex  items-center space-x-2">
+          <NotebookPen className="size-9 text-blue-600 " />
+          <h1 className="text-3xl font-bold text-sky-950 ">StudyBuddy</h1>
+      </div>
+        <Sheet>
+          <SheetTrigger asChild>
+           <Button variant="secondary" className="lg:hidden bg-transparent hover:bg-sky-100  ">
+           <Menu className=" text-blue-950  " />
+           </Button>
+          </SheetTrigger> 
+          <SheetContent side="left" className=" bg-black h-full w-auto overflow-hidden ">
+           <SideBarfunction2/>
+          </SheetContent>
+        </Sheet>
+        </header>
+        <div className="pt-16">
+        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
+        <SideBarfunction/>
+        </div>
+        </div>
+        <div className="lg:justify-items-center pt-16 grid grid-cols-1 ">
+          <div>
+            <Card className=" lg:w-[700px] md:mx-10 bg-white text-center bg-opacity-10  ">
+              <StudyMaterialsCard/>
+            </Card>
+          </div>
+        </div> 
+        </div>  
+    </>
+  );
+};
+
+const StudyMaterialsCard =()=> {
+
 
    /* Add subject functions */
   
@@ -72,39 +113,16 @@ const StudyMaterialsPage = () => {
      }
    };
 
-  return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="flex min-h-screen">
-      <Sheet>
-          <SheetTrigger asChild>
-           <Button variant="default" className="lg:hidden flex bg-transparent hover:bg-slate-500 " size="icon" >
-            <Menu className=" text-blue-950 " />
-           </Button>
-          </SheetTrigger> 
-          <SheetContent side="left" className="bg-black h-full w-auto overflow-hidden ">
-           <SideBarfunction2/>
-          </SheetContent>
-        </Sheet>
-      </div>
-      <main className="flex-1 overflow-y-auto">
-      <header className=" pt-5">
-         <div className="flex items-center justify-center h-10 ">
-          <NotebookPen className="h-6 w-6 text-blue-600" />
-          <Label className="ml-2 text-5xl text-sky-950 font-semibold ">StudyBuddy</Label>
-        </div>
-        </header>
-        <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
-        <SideBarfunction/>
-        </div>
-        <div className="grid md:grid-cols-1   ">
+  return(
+    <>
+      <div className="grid md:grid-cols-1   ">
         <div className=" justify-items-center">
         <div>
         <h1 className="text-4xl font-bold pt-10 text-blue-950 ">Study Materials</h1>
         <h2 className="text-m pb-5 text-blue-950">Your Subjects and units </h2>
         </div>
         
-        <div className="">
+        <div className=" grid grid-cols-4">
         {loading ? (
         <p>Loading subjects...</p>
         ) : (
@@ -115,16 +133,14 @@ const StudyMaterialsPage = () => {
         </>
         )}
         </div>
-         <div className="pt-9">
+         <div className="pt-9 pb-3">
         <AddSubjectDialog onAddSubject={handleAddSubject} />
         </div>
       </div>
       </div>
-      </main>
-    </div>
-  );
-};
-
+    </>
+  )
+}
 
 //PDf notes Subjectcard
 const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
@@ -204,7 +220,7 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
                           </a>
                         </li>
                       ))}
-                      <li className=" flex items-center gap-2 pt-5 ">
+                      <li className="flex items-center gap-2 pt-5 ">
                       <AddUnitDialog onAddUnit={handleAddUnit} />
                       </li>
                     </ul>

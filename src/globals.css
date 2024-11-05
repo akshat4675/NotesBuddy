@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply  text-white min-h-screen font-inter;
+    @apply bg-[url('https://testbucket4675.s3.ap-south-1.amazonaws.com/bgImg.jpg')]  bg-scroll bg-cover text-off-white h-screen font-inter;
   }
 }
 
