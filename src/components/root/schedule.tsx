@@ -1,5 +1,5 @@
 import "../globals.css";
-import { House, LogOut, NotebookPen, DeleteIcon, Menu, Calendar, BookOpen } from "lucide-react";
+import { House, LogOut, NotebookPen, DeleteIcon, Menu, Calendar, BookOpen, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -103,7 +103,6 @@ const Schedule = () => {
         <SideBarfunction/>
         </div>
         <div className="pt-16">
-          
           <Card className="w-full bg-white bg-opacity-20 max-w-md mx-auto">
             <CardHeader>
               <CardTitle className="text-center">Schedule</CardTitle>
@@ -181,7 +180,9 @@ function SideBarfunction2(){
   const studymaterials =()=>{
     navigate('/studymaterials');
   }
-  
+  const assignement =()=>{
+    navigate('/assignment');
+  }
 
 
   return(
@@ -204,6 +205,12 @@ function SideBarfunction2(){
                 <Button onClick={studymaterials} variant="ghost" className=" text-sky-200   w-full justify-start">
                   <Calendar className="mr-2 h-4 w-4" /> 
                   Study Materials
+                </Button>
+              </li>
+              <li>
+                <Button onClick={assignement} variant="ghost" className=" text-sky-200   w-full justify-start">
+                  <ClipboardCheck className="mr-2 h-4 w-4" /> 
+                  Assignment
                 </Button>
               </li>
             </ul>
@@ -234,7 +241,9 @@ function SideBarfunction(){
   const studymaterials =()=>{
     navigate('/studymaterials');
   }
-  
+  const assignement =()=>{
+    navigate('/assignment');
+  }
 
 
   return(
@@ -270,6 +279,20 @@ function SideBarfunction(){
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Study Materials</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+              </li>
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={assignement} variant="ghost" className=" text-sky-200 justify-start">
+                  <ClipboardCheck className=" h-2 w-2" /> 
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Assigments</p>
                 </TooltipContent>
               </Tooltip>
               </TooltipProvider>

@@ -1,5 +1,5 @@
 import "../globals.css";
-import { House, LogOut, NotebookPen, Menu, Calendar, ChevronDown, ChevronRight, FileText, Plus, BookOpen } from "lucide-react";
+import { House, LogOut, NotebookPen, Menu, Calendar, ChevronDown, ChevronRight, FileText, Plus, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "../ui/card";
 import { DialogHeader, DialogFooter } from "../ui/dialog";
 import { Input } from "../ui/input";
-import { getSubjects, addSubject, getUnits, addUnit } from "./aws-utils";
+import { getSubjects, addSubject, getUnits, addUnit } from "./PdfuploadF";
 import { Tooltip, TooltipContent, TooltipProvider ,TooltipTrigger} from "../ui/tooltip";
 
 
@@ -25,6 +25,7 @@ type Unit = {
   name: string;
   pdfUrl: string; // URL to the PDF file
 };
+
 
 const StudyMaterialsPage = () => {
 
@@ -96,7 +97,7 @@ const StudyMaterialsPage = () => {
         <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block" >
         <SideBarfunction/>
         </div>
-        <div className="grid md:grid-cols-2   ">
+        <div className="grid md:grid-cols-1   ">
         <div className=" justify-items-center">
         <div>
         <h1 className="text-4xl font-bold pt-10 text-blue-950 ">Study Materials</h1>
@@ -118,38 +119,14 @@ const StudyMaterialsPage = () => {
         <AddSubjectDialog onAddSubject={handleAddSubject} />
         </div>
       </div>
-      <div className="pt-9">
-        <Card className="justify-center border-transparent bg-transparent">
-          <CardContent>
-          <div>
-        <h1 className="text-4xl font-bold  text-blue-950 ">Assignments</h1>
-        <h2 className="text-m pb-5 text-blue-950">Your Assignments and deadlines </h2>
-        </div>
-        
-        <div className="">
-        {loading ? (
-        <p>Loading subjects...</p>
-        ) : (
-        <>
-          {subjects.map((subject) => (
-            <SubjectCard key={subject.id} subject={subject} />
-          ))}
-        </>
-        )}
-        </div>
-         <div className="pt-9">
-        <AddSubjectDialog onAddSubject={handleAddSubject} />
-        </div>
-
-          </CardContent>
-        </Card>
-      </div>
       </div>
       </main>
     </div>
   );
 };
 
+
+//PDf notes Subjectcard
 const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
   const { toast } = useToast(); // Ensure toast is accessible
   const [isOpen, setIsOpen] = useState(false);
@@ -240,6 +217,8 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
     </div>
   );
 };
+
+
 
 function AddSubjectDialog({ onAddSubject }: { onAddSubject: (name: string) => void }) {
   const [subjectName, setSubjectName] = useState('');
@@ -345,6 +324,8 @@ function AddUnitDialog({ onAddUnit }: { onAddUnit: (name: string, file: File) =>
   );
 }
 
+
+//Function for both the sideBars
 function SideBarfunction2(){
   
   const navigate = useNavigate();
@@ -353,12 +334,15 @@ function SideBarfunction2(){
     sessionStorage.clear();
     navigate('/login');
   };
-  const studymaterial =()=>
+  const home =()=>
     {
       navigate('/home');
     }
   const schedul =()=>{
     navigate('/schedule');
+  }
+  const assignement =()=>{
+    navigate('/assignment');
   }
   
 
@@ -373,8 +357,8 @@ function SideBarfunction2(){
           <nav className="flex-1 overflow-y-auto">
             <ul className="p-2 space-y-1">
               <li>
-                <Button onClick={studymaterial} variant="ghost" className="  text-sky-200  w-full justify-start">
-                  <BookOpen  className="mr-2 h-4 w-4" />
+                <Button onClick={home} variant="ghost" className="  text-sky-200  w-full justify-start">
+                  <House  className="mr-2 h-4 w-4" />
                   
                   Home
                 </Button>
@@ -383,6 +367,12 @@ function SideBarfunction2(){
                 <Button onClick={schedul} variant="ghost" className=" text-sky-200   w-full justify-start">
                   <Calendar className="mr-2 h-4 w-4" /> 
                   Schedule
+                </Button>
+              </li>
+              <li>
+                <Button onClick={assignement} variant="ghost" className=" text-sky-200   w-full justify-start">
+                  <ClipboardCheck className="mr-2 h-4 w-4" /> 
+                  Assignment
                 </Button>
               </li>
             </ul>
@@ -413,7 +403,9 @@ function SideBarfunction(){
   const schedul =()=>{
     navigate('/schedule');
   }
-  
+  const assignement =()=>{
+    navigate('/assignment');
+  }
 
 
   return(
@@ -449,6 +441,20 @@ function SideBarfunction(){
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Schedule</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+              </li>
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={assignement} variant="ghost" className=" text-sky-200 justify-start">
+                  <ClipboardCheck className=" h-2 w-2" /> 
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Assigments</p>
                 </TooltipContent>
               </Tooltip>
               </TooltipProvider>

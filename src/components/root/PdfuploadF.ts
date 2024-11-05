@@ -38,7 +38,7 @@ const s3Client = new S3Client({
 
 const SUBJECT_TABLE_NAME = import.meta.env.VITE_SUBJECT_TABLE_NAME || "Subjects";
 const UNIT_TABLE_NAME = import.meta.env.VITE_UNIT_TABLE_NAME || "Units";
-const S3_BUCKET_NAME = import.meta.env.VITE_S3_BUCKET_NAME;
+const S3_BUCKET_NAME = import.meta.env.VITE_S3_BUCKET_NAME ||"testbucket4675";
 
 if (!S3_BUCKET_NAME) {
   throw new Error("Missing S3 bucket name. Please check your .env file.");
@@ -49,7 +49,7 @@ const getUserId = (): string | null => {
 };
 
 
-
+//Function for fetching Subjects for pdf notes
 export async function getSubjects() {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
@@ -71,7 +71,7 @@ export async function getSubjects() {
   }
 }
 
-
+//Function to Add Subjects for pdf notes
 export async function addSubject(name: string) {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
@@ -93,6 +93,7 @@ export async function addSubject(name: string) {
   }
 }
 
+//Function to fetch Units
 export async function getUnits(subjectId: string) {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
@@ -115,6 +116,7 @@ export async function getUnits(subjectId: string) {
   }
 }
 
+//Function To Add  Units
 export async function addUnit(subjectId: string, name: string, file: File) {
   const userId = getUserId();
   if (!userId) throw new Error("User ID not found in session storage");
@@ -149,4 +151,3 @@ export async function addUnit(subjectId: string, name: string, file: File) {
     throw error;
   }
 }
-

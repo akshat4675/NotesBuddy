@@ -1,5 +1,5 @@
 import "../globals.css";
-import { BookOpen, Calendar,  LogOut, Menu, NotebookPen} from "lucide-react"
+import { BookOpen, Calendar,  ClipboardCheck,  LogOut, Menu, NotebookPen} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {  useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -57,7 +57,9 @@ function SideBarfunction(){
   const schedul =()=>{
     navigate('/schedule');
   }
-  
+  const assignment =()=> {
+    navigate('/assignment');
+  }
 
 
   return(
@@ -93,6 +95,20 @@ function SideBarfunction(){
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Schedule</p>
+                </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
+              </li>
+              <li>
+              <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <Button onClick={assignment} variant="ghost" className=" text-sky-200 justify-start">
+                  <ClipboardCheck className=" h-2 w-2" /> 
+                </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Assignment</p>
                 </TooltipContent>
               </Tooltip>
               </TooltipProvider>
@@ -135,6 +151,9 @@ function SideBarfunction2(){
   const schedul =()=>{
     navigate('/schedule');
   }
+  const assignment =()=> {
+    navigate('/assignement');
+  }
   
 
 
@@ -158,6 +177,18 @@ function SideBarfunction2(){
                 <Button onClick={schedul} variant="ghost" className=" text-sky-200   w-full justify-start">
                   <Calendar className="mr-2 h-4 w-4" /> 
                   Schedule
+                </Button>
+              </li>
+              <li>
+                <Button onClick={schedul} variant="ghost" className=" text-sky-200   w-full justify-start">
+                  <Calendar className="mr-2 h-4 w-4" /> 
+                  Schedule
+                </Button>
+              </li>
+              <li>
+                <Button onClick={assignment} variant="ghost" className=" text-sky-200   w-full justify-start">
+                <ClipboardCheck className=" h-2 w-2" /> 
+                  Assignment
                 </Button>
               </li>
             </ul>
