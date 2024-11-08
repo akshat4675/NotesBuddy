@@ -55,7 +55,7 @@ const StudyMaterialsPage = () => {
         <SideBarfunction/>
         </div>
         </div>
-        <div className="lg:justify-items-center pt-16 grid grid-cols-1 ">
+        <div className="lg:justify-items-center pt-16 grid grid-cols-1">
           <div>
             <Card className=" lg:w-[700px] md:mx-10 bg-white text-center bg-opacity-10  ">
               <StudyMaterialsCard/>
@@ -121,8 +121,7 @@ const StudyMaterialsCard =()=> {
         <h1 className="text-4xl font-bold pt-10 text-blue-950 ">Study Materials</h1>
         <h2 className="text-m pb-5 text-blue-950">Your Subjects and units </h2>
         </div>
-        
-        <div className=" grid grid-cols-4">
+        <div className="pl-5 gap-4 grid grid-cols-4">
         {loading ? (
         <p>Loading subjects...</p>
         ) : (

@@ -7,7 +7,6 @@ import HomePage from "./components/root/homePage"
 import StudyMaterialsPage from './components/root/study-materials';
 import SchedulePage from './components/root/schedule';
 import AssignmentsPage from './components/root/Assignments';
-import React from 'react';
 
 
 const App = () => {
