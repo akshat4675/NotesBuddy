@@ -71,6 +71,8 @@ export async function getSubjects() {
   }
 }
 
+
+
 //Function to Add Subjects for pdf notes
 export async function addSubject(name: string) {
   const userId = getUserId();
