@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import '@/globals.css'
 import LoginPage from "./components/auth/loginPage" 
 import ConfirmPage from "./components/auth/confirmPage"
-import HomePage from "./components/root/homePage"
-import StudyMaterialsPage from './components/root/study-materials';
-import SchedulePage from './components/root/schedule';
-import AssignmentsPage from './components/root/Assignments';
+import HomePage from "./components/root/Pages/homePage"
+import StudyMaterialsPage from './components/root/Pages/study-materials';
+import SchedulePage from './components/root/Pages/schedule';
+import AssignmentsPage from './components/root/Pages/Assignments';
 
 
 const App = () => {
