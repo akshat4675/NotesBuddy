@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip";
-import { NotebookPen, House, Calendar, ClipboardCheck, LogOut} from "lucide-react";
+import { NotebookPen, House, Calendar, ClipboardCheck, LogOut, Home} from "lucide-react";
 import { Button } from "../../ui/button";
 
 export function SideBar(){
@@ -20,6 +20,9 @@ export function SideBar(){
     }
     const assignement =()=>{
       navigate('/assignment');
+    }
+    const studymaterials =()=>{
+      navigate('/study-materials');
     }
   
   
@@ -57,6 +60,20 @@ export function SideBar(){
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Schedule</p>
+                  </TooltipContent>
+                </Tooltip>
+                </TooltipProvider>
+                </li>
+                <li>
+                <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                  <Button onClick={studymaterials} variant="ghost" className=" text-sky-200 justify-start">
+                    <ClipboardCheck className=" h-2 w-2" /> 
+                  </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Study Materials</p>
                   </TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
@@ -105,6 +122,10 @@ export function SideBar(){
     sessionStorage.clear();
     navigate('/login');
   };
+  const home =()=>
+  {
+    navigate('/home');
+  }
   const studymaterial =()=>
     {
       navigate('/studymaterials');
@@ -127,6 +148,13 @@ export function SideBar(){
           </div>
           <nav className="flex-1 overflow-y-auto">
             <ul className="p-2 space-y-1">
+            <li>
+                <Button onClick={home} variant="ghost" className="  text-sky-200  w-full justify-start">
+                  <House  className="mr-2 h-4 w-4" />
+                  
+                  Study Materials
+                </Button>
+              </li>
               <li>
                 <Button onClick={studymaterial} variant="ghost" className="  text-sky-200  w-full justify-start">
                   <House  className="mr-2 h-4 w-4" />
