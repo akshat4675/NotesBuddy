@@ -111,11 +111,11 @@ const AssignmentsCard =()=>{
 
   return(
           <>
-          <div className="grid md:grid-cols-1">
+          <div className="grid ">
           <div className="justify-items-center">
             <h1 className="text-4xl font-bold pt-10 text-blue-950">Assignments</h1>
             <h2 className="text-m pb-5 text-blue-950">Your assignment questions and deadlines</h2>
-            <div>
+            <div className="grid pl-3 lg:grid-cols-4 ">
               {loading ? (
                 <p>Loading...</p>
               ) : (

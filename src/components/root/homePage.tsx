@@ -59,7 +59,7 @@ const HomePage = () => {
            <CarouselNext />
            </Carousel>
           </div>
-          <div className="pt-10">
+          <div className="pt-10 ">
             <Card className="bg-white lg:w-[500px] bg-opacity-40">
               <CardHeader>
               <CardTitle className="text-center">Your To-Dos..</CardTitle>
@@ -99,7 +99,7 @@ function SideBarfunction(){
 
   return(
     <>
-    <div className="flex h-full flex-col">
+    <div className="flex h-full  flex-col">
           <div className="flex items-center justify-center h-16 ">
             <NotebookPen className="h-6 w-6 text-blue-600 " />
           </div>
