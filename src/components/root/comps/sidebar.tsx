@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip";
-import { NotebookPen, House, Calendar, ClipboardCheck, LogOut, Home} from "lucide-react";
+import { NotebookPen, House, Calendar, ClipboardCheck, LogOut, BookOpen} from "lucide-react";
 import { Button } from "../../ui/button";
 
 export function SideBar(){
@@ -22,7 +22,7 @@ export function SideBar(){
       navigate('/assignment');
     }
     const studymaterials =()=>{
-      navigate('/study-materials');
+      navigate('/studymaterials');
     }
   
   
@@ -69,7 +69,7 @@ export function SideBar(){
                 <Tooltip>
                   <TooltipTrigger asChild>
                   <Button onClick={studymaterials} variant="ghost" className=" text-sky-200 justify-start">
-                    <ClipboardCheck className=" h-2 w-2" /> 
+                    <BookOpen className=" h-2 w-2" /> 
                   </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -152,7 +152,7 @@ export function SideBar(){
                 <Button onClick={home} variant="ghost" className="  text-sky-200  w-full justify-start">
                   <House  className="mr-2 h-4 w-4" />
                   
-                  Study Materials
+                  Home
                 </Button>
               </li>
               <li>
@@ -170,7 +170,7 @@ export function SideBar(){
               </li>
               <li>
                 <Button onClick={assignment} variant="ghost" className=" text-sky-200   w-full justify-start">
-                <ClipboardCheck className=" h-2 w-2" /> 
+                <ClipboardCheck className="mr-2 h-2 w-2" /> 
                   Assignment
                 </Button>
               </li>
