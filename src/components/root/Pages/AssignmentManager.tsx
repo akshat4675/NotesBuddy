@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import { useState, useEffect } from "react";
-import { fetchSubjects, deleteDataFromDynamoDB, uploadDataToDynamoDB } from "../Funtions/fileupload";
+import { fetchSubjects, deleteDataFromDynamoDB, uploadDataToDynamoDB } from "../Funtions/AssignmentFunctions";
 
 const AssignmentManager : React.FC = () => {
     const [uploadedItems, setUploadedItems] = useState<Array<{ subjectName: string; unitName: string; pdfUrl: string; fileName: string }>>([]);
@@ -25,6 +25,7 @@ const AssignmentManager : React.FC = () => {
     const fetchUploadedItems = async () => {
       try {
         const subjects = await fetchSubjects();
+         var sub=1;
         setUploadedItems(subjects);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -61,6 +62,7 @@ const AssignmentManager : React.FC = () => {
               </CardTitle>
             </CardHeader>
             <div className='space-y-4'>
+              {sub>0? s :g}
               <NotesCard uploadedItems={uploadedItems} />
               <AddNotesDialog refreshItems={fetchUploadedItems} />
               <div className='pt-4'>
@@ -182,12 +184,12 @@ const AssignmentManager : React.FC = () => {
         
           <div className=''>
   
-            <Card className='h-auto bg-white bg-opacity-10 flex-auto '>
+            <Card className='h-auto bg-white bg-opacity-40 flex-auto '>
           {uniqueSubjects.map((subject, index) => (
             <Button
               key={index}
-              variant="outline"
-              className="w-auto text-xl bg-transparent  text-center items-center"
+              variant={"outline"}
+              className="w-auto text-xl bg-transparent   text-center items-center"
               onClick={() => openDialog(subject)}
             >
               <span>{subject}</span>
@@ -202,7 +204,7 @@ const AssignmentManager : React.FC = () => {
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent className="max-w-lg p-6">
               <DialogHeader>
-                <DialogTitle className="text-2xl text-gray-800 text-center font-bold">{selectedSubject} Notes</DialogTitle>
+                <DialogTitle className="text-2xl text-gray-800 text-center font-bold">{selectedSubject}: Assignments</DialogTitle>
                 <h2 className='text-slate-900 text-lg text-center'>Units</h2>
               </DialogHeader>
               <div className="space-y-4">

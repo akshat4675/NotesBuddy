@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip";
-import { NotebookPen, House, Calendar, ClipboardCheck, LogOut, BookOpen} from "lucide-react";
+import { NotebookPen, House, Calendar, LogOut, BookOpen} from "lucide-react";
 import { Button } from "../../ui/button";
 
 export function SideBar(){
@@ -17,9 +17,6 @@ export function SideBar(){
       }
     const schedul =()=>{
       navigate('/schedule');
-    }
-    const assignement =()=>{
-      navigate('/assignment');
     }
     const studymaterials =()=>{
       navigate('/studymaterials');
@@ -49,21 +46,6 @@ export function SideBar(){
                   </TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
-                    
-                </li>
-                <li>
-                <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                  <Button onClick={schedul} variant="ghost" className=" text-sky-200 justify-start">
-                    <Calendar className=" h-2 w-2" /> 
-                  </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Schedule</p>
-                  </TooltipContent>
-                </Tooltip>
-                </TooltipProvider>
                 </li>
                 <li>
                 <TooltipProvider>
@@ -83,16 +65,17 @@ export function SideBar(){
                 <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                  <Button onClick={assignement} variant="ghost" className=" text-sky-200 justify-start">
-                    <ClipboardCheck className=" h-2 w-2" /> 
+                  <Button onClick={schedul} variant="ghost" className=" text-sky-200 justify-start">
+                    <Calendar className=" h-2 w-2" /> 
                   </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Assigments</p>
+                    <p>Schedule</p>
                   </TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
                 </li>
+                
               </ul>
             </nav>
             <div className="p-3">
@@ -135,9 +118,6 @@ export function SideBar(){
   const schedul =()=>{
     navigate('/schedule');
   }
-  const assignment =()=> {
-    navigate('/assignment');
-  }
   
 
 
@@ -170,12 +150,7 @@ export function SideBar(){
                   Schedule
                 </Button>
               </li>
-              <li>
-                <Button onClick={assignment} variant="ghost" className=" text-sky-200   w-full justify-start">
-                <ClipboardCheck className="mr-2 h-2 w-2" /> 
-                  Assignment
-                </Button>
-              </li>
+              
             </ul>
           </nav>
           <div className="p-4">

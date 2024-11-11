@@ -6,7 +6,7 @@ import ConfirmPage from "./components/auth/confirmPage"
 import HomePage from "./components/root/Pages/homePage"
 import StudyMaterialsPage from './components/root/Pages/study-materials';
 import SchedulePage from './components/root/Pages/schedule';
-import AssignmentsPage from './components/root/Pages/Assignments';
+
 
 
 const App = () => {
@@ -25,7 +25,6 @@ const App = () => {
       <Route path="/home" element={isAuthenticated() ? <HomePage /> : <Navigate replace to="/login" />} />
       <Route path="/studymaterials" element={isAuthenticated() ? <StudyMaterialsPage /> : <Navigate replace to="/login" />} />
       <Route path="/schedule" element={isAuthenticated() ? <SchedulePage /> : <Navigate replace to="/login" />} />
-      <Route path="/assignment" element={isAuthenticated() ? <AssignmentsPage /> : <Navigate replace to="/login" />} />
     </Routes>
     </BrowserRouter>
   );

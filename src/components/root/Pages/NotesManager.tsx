@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { uploadDataToDynamoDB, deleteDataFromDynamoDB, fetchSubjects } from '../Funtions/fileupload';
+import { uploadDataToDynamoDB, deleteDataFromDynamoDB, fetchSubjects } from '../Funtions/NotesFunctions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
@@ -180,7 +180,7 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
       
         <div className=''>
 
-          <Card className='h-auto bg-white bg-opacity-10 flex-auto '>
+          <Card className='h-auto bg-white bg-opacity-40 flex-auto '>
         {uniqueSubjects.map((subject, index) => (
           <Button
             key={index}
