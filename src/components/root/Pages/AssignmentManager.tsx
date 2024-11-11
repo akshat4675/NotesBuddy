@@ -25,7 +25,6 @@ const AssignmentManager : React.FC = () => {
     const fetchUploadedItems = async () => {
       try {
         const subjects = await fetchSubjects();
-         var sub=1;
         setUploadedItems(subjects);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -62,7 +61,6 @@ const AssignmentManager : React.FC = () => {
               </CardTitle>
             </CardHeader>
             <div className='space-y-4'>
-              {sub>0? s :g}
               <NotesCard uploadedItems={uploadedItems} />
               <AddNotesDialog refreshItems={fetchUploadedItems} />
               <div className='pt-4'>
