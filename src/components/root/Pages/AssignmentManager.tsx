@@ -12,7 +12,7 @@ import { fetchSubjects, deleteDataFromDynamoDB, uploadDataToDynamoDB } from "../
 const AssignmentManager : React.FC = () => {
     const [uploadedItems, setUploadedItems] = useState<Array<{ subjectName: string; unitName: string; pdfUrl: string; fileName: string }>>([]);
     const [selectedItemToDelete, setSelectedItemToDelete] = useState<string | null>(null);
-    
+
     const userId = sessionStorage.getItem('userSub');
     if (!userId) {
       return <p>Please log in to manage content.</p>;
@@ -49,7 +49,9 @@ const AssignmentManager : React.FC = () => {
         alert('Failed to delete data');
       }
     };
+     
   
+
     return (
       <div className="grid justify-center pt-6 bg-transparent ">
         <div className="text-center ">
@@ -179,23 +181,20 @@ const AssignmentManager : React.FC = () => {
     return (
       <div className='bg-white bg-opacity-30 rounded-lg shadow-md p-4'>
         <h3 className="text-xl font-semibold text-gray-800 mb-4">Subjects</h3>
-        
+        {uploadedItems.length>0 ? (
           <div className=''>
-  
-            <Card className='h-auto bg-white bg-opacity-40 flex-auto '>
+            <Card className='h-auto bg-white bg-opacity-40 flex-auto '> 
           {uniqueSubjects.map((subject, index) => (
             <Button
               key={index}
               variant={"outline"}
               className="w-auto text-xl bg-transparent   text-center items-center"
-              onClick={() => openDialog(subject)}
-            >
+              onClick={() => openDialog(subject)}>
               <span>{subject}</span>
-              
             </Button>
           ))}
           </Card>
-        </div>
+        </div>):(<div>No Subjects , Please upload from below !</div>)}
   
         {/* Dialog for displaying notes by subject */}
         {selectedSubject && (

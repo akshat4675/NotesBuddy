@@ -177,7 +177,7 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
   return (
     <div className='bg-white bg-opacity-30 rounded-lg shadow-md p-4'>
       <h3 className="text-xl font-semibold text-gray-800 mb-4">Topics</h3>
-      
+      {uploadedItems.length>0 ? (
         <div className=''>
 
           <Card className='h-auto bg-white bg-opacity-40 flex-auto '>
@@ -193,8 +193,9 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
           </Button>
         ))}
         </Card>
-      </div>
-
+        </div>):(<div>No Subjects , Please upload from below !</div>)}
+      
+ 
       {/* Dialog for displaying notes by subject */}
       {selectedSubject && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
