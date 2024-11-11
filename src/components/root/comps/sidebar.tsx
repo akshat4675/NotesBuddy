@@ -28,9 +28,10 @@ export function SideBar(){
   
     return(
       <>
-      <div className="fixed mx-3 hidden h-5/6 rounded-3xl bg-background w-14 bg-black lg:block">
+      <div className="fixed pt-10">
+      <div className="fixed mx-3 hidden h-96 rounded-3xl bg-background w-14 bg-black lg:block">
       <div className="flex h-full flex-col">
-            <div className="flex items-center justify-center h-16 ">
+            <div className="flex items-center justify-center h-20 ">
               <NotebookPen className="h-6 w-6 text-blue-600 " />
             </div>
             <nav className="flex-1 overflow-y-auto">
@@ -108,6 +109,7 @@ export function SideBar(){
                 </Tooltip>
                 </TooltipProvider>
             </div>
+          </div>
           </div>
           </div>
       </>

@@ -1,5 +1,5 @@
 import "@/globals.css";
-import { NotebookPen, DeleteIcon, Menu } from "lucide-react";
+import { DeleteIcon} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,8 +7,8 @@ import { useState, useEffect } from "react";
 import { getAllEvents, addEvent, deleteEventByName } from "../Funtions/dynamoDBService";
 import { ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Label } from "@/components/ui/label";
-import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
-import { SideBar, SidePanel } from "../comps/sidebar";
+import { SideBar } from "../comps/sidebar";
+import { Head } from "../comps/header";
 
 // Define event structure
 interface Event {
@@ -22,18 +22,9 @@ const Schedule = () => {
   return (
     <>
     <div className="h-screen">
-    <header className="fixed top-0 left-0 right-0 h-16 bg-transparent  z-10 flex items-center justify-center">
-      <div className="flex  items-center space-x-2">
-          <NotebookPen className="size-9 text-blue-600 " />
-          <h1 className="text-3xl font-bold text-sky-950 ">StudyBuddy</h1>
-      </div>
-        <Sheett/>
-      
-        </header>
-        <div className="pt-16">
-        <div >
+    <div>
+        <Head/>
         <SideBar/>
-        </div>
         </div>
         <div className="lg:justify-items-center pt-16 grid grid-cols-1 ">
           <div>
@@ -176,19 +167,6 @@ const ScheduleCard =()=> {
   )
 };
 
-function Sheett(){
-  return (
-    <Sheet>
-          <SheetTrigger asChild>
-           <Button variant="secondary" className="lg:hidden bg-transparent hover:bg-sky-100  ">
-           <Menu className=" text-blue-950 " />
-           </Button>
-          </SheetTrigger> 
-          <SheetContent side="left" className=" bg-black h-full w-auto overflow-hidden ">
-           <SidePanel/>
-          </SheetContent>
-        </Sheet>
-  )
-}
+
 
 export default Schedule;

@@ -1,14 +1,14 @@
 import "@/globals.css";
-import { DeleteIcon, Menu, NotebookPen} from "lucide-react"
+import { DeleteIcon} from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import { Label} from "../../ui/label";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../ui/card";
 import { addToDo, getToDos, completeToDo, deleteToDo } from '../Funtions/todo';
 import { useEffect, useState } from "react";
 import { Input } from "../../ui/input";
 import {Carousel,CarouselContent,CarouselItem,CarouselNext,CarouselPrevious,} from "@/components/ui/carousel"
-import {SideBar,SidePanel} from "../comps/sidebar";
+import {SideBar} from "../comps/sidebar";
+import { Head } from "../comps/header";
 
 const HomePage = () => {
 
@@ -16,19 +16,11 @@ const HomePage = () => {
   return (
       <>
     <div className="h-screen">
-    <header className="top-3 left-0 right-0 h-16 bg-transparent flex items-center justify-center">
-      <div className="flex items-center">
-          <NotebookPen className="size-9 text-blue-600 " />
-          <h1 className="lg:text-5xl text-3xl font-bold text-sky-950 ">StudyBuddy</h1>
-      </div>
-        <Sheett/>
-        </header> 
-        <div className="fixed">
         <div>
-          <SideBar/>
+        <Head/>
+        <SideBar/>
         </div>
-        </div>
-        <div className="lg:justify-items-center lg:grid-cols-2 grid grid-cols-1 mx-12 ">
+        <div className="lg:justify-items-center pt-10 lg:grid-cols-2 grid grid-cols-1 mx-12 ">
           <div className="pt-10  ">
           <Carousel className="w-full max-w-xs">
           <CarouselContent>
@@ -151,18 +143,4 @@ function ToDoList() {
   );
 }
 
-function Sheett(){
-  return (
-    <Sheet>
-          <SheetTrigger asChild>
-           <Button variant="secondary" className="lg:hidden bg-transparent hover:bg-sky-100  ">
-           <Menu className=" text-blue-950 " />
-           </Button>
-          </SheetTrigger> 
-          <SheetContent side="left" className=" bg-black h-full w-auto overflow-hidden ">
-           <SidePanel/>
-          </SheetContent>
-        </Sheet>
-  )
-}
 export default HomePage;

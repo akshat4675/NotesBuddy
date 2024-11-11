@@ -1,7 +1,6 @@
 import "@/globals.css";
-import { NotebookPen, Menu, ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
+import {  ChevronDown, ChevronRight, FileText, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogClose } from "@/components/ui/dialog";
@@ -11,7 +10,8 @@ import { Card, CardContent } from "../../ui/card";
 import { DialogHeader, DialogFooter } from "../../ui/dialog";
 import { Input } from "../../ui/input";
 import { getSubs, addSub, getAssignments, addAssignment } from "../Funtions/AssignementUploadf"; // Note: Changed getSubjects and addSubject to getSubs and addSub
-import { SideBar, SidePanel } from "../comps/sidebar";
+import { SideBar } from "../comps/sidebar";
+import { Head } from "../comps/header";
 
 // Define types for Sub (formerly Subject) and Assignment
 type Sub = {
@@ -32,18 +32,10 @@ const AssignmentsPage = () => {
   return (
     <>
     <div className="h-screen">
-    <header className="fixed top-0 left-0 right-0 h-16 bg-transparent  z-10 flex items-center justify-center">
-      <div className="flex  items-center space-x-2">
-          <NotebookPen className="size-9 text-blue-600 " />
-          <h1 className="lg:text-4xl font-bold text-sky-950 ">StudyBuddy</h1>
+    <div>
+      <Head />
+      <SideBar />
       </div>
-      <Sheett/>
-        </header>
-        <div className="pt-16">
-        <div >
-        <SideBar/>
-        </div>
-        </div>
         <div className="lg:justify-items-center pt-16 grid grid-cols-1 ">
           <div>
             <Card className=" lg:w-[700px] md:mx-10 bg-white text-center bg-opacity-10 ">
@@ -247,7 +239,7 @@ function AddSubDialog({ onAddSub }: { onAddSub: (name: string) => void }) {  // 
   );
 }
 
-// Add Assignment Dialog component remains unchanged
+// Add Assignment Dialog 
 function AddAssignmentDialog({ onAddAssignment }: { onAddAssignment: (name: string, file: File) => void }) {
   const [assignmentName, setAssignmentName] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -292,19 +284,6 @@ function AddAssignmentDialog({ onAddAssignment }: { onAddAssignment: (name: stri
   );
 }
 
-function Sheett(){
-  return (
-    <Sheet>
-          <SheetTrigger asChild>
-           <Button variant="secondary" className="lg:hidden bg-transparent hover:bg-sky-100  ">
-           <Menu className=" text-blue-950 " />
-           </Button>
-          </SheetTrigger> 
-          <SheetContent side="left" className=" bg-black h-full w-auto overflow-hidden ">
-           <SidePanel/>
-          </SheetContent>
-        </Sheet>
-  )
-}
+
 
 export default AssignmentsPage;
