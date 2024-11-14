@@ -25,7 +25,7 @@ export function SideBar(){
   
     return(
       <>
-      <div className="fixed pt-10">
+      <div className="fixed pt-6 ">
       <div className="fixed mx-3 hidden h-96 rounded-3xl bg-background w-14 bg-black lg:block">
       <div className="flex h-full flex-col">
             <div className="flex items-center justify-center h-20 ">
