@@ -27,10 +27,10 @@ const Schedule = () => {
         <Head/>
         <SideBar/>
         </div>
-        <div className="lg:justify-items-center pt-2">
+        <div className="lg:justify-items-center pt-1">
           
-          <div>
-          <Card className="bg-slate-400 lg:w-[900px] bg-opacity-20 border-transparent">
+          <div className="">
+          <Card className="bg-[url('src/assets/Images/scheduleandtodos.jpg')]  h-[700px] lg:w-[900px] lg:h-[560px] bg-opacity-20 border-transparent">
               <CardHeader>
                 <CardTitle>Personal Organizer</CardTitle>
               </CardHeader>
@@ -40,14 +40,14 @@ const Schedule = () => {
                     <TabsTrigger value="todos">To-Do List</TabsTrigger>
                   </TabsList>
                   <TabsContent value="schedule">
-                    <div>
-                      <div className="flex text-xl font-bold">Your Schedule </div>
-                      <div className="font-semibold flex text-sm text-slate-600 pb-5">Reminder , deadlines etc...</div>
+                    <div className="bg-stone-500 p-5 pt-5 bg-opacity-90 rounded-md">
+                      <div className="flex text-2xl font-bold">Your Schedule </div>
+                      <div className=" flex text-sm  pb-5">Reminder , deadlines etc...</div>
                     <ScheduleCard/>
                     </div>
                   </TabsContent>
                   <TabsContent value="todos">
-                    <div>
+                    <div className="bg-stone-500 p-5 bg-opacity-90 rounded-md ">
                     <ToDoList/>
                     </div>
                   </TabsContent>
@@ -151,7 +151,7 @@ const ScheduleCard =()=> {
               </div>
               <div className="grid pt-5 grid-cols-1 lg:grid-cols-2 gap-1">
                 <div>
-                  <Label className="flex pb-2 font-bold pt-2" >Add New Event</Label>
+                  <Label className="flex pb-2  font-bold pt-2" >Add New Event</Label>
                   <Input
                     type="text"
                     placeholder="Event Name"
@@ -161,7 +161,7 @@ const ScheduleCard =()=> {
                   />
                 </div>
                 <div className="pb-2">
-                  <Label className="flex pb-2 font-bold pt-2" >Date</Label>
+                  <Label className="flex pb-2  font-bold pt-2" >Date</Label>
                   <Input
                     type="date"
                     value={newEventDate}

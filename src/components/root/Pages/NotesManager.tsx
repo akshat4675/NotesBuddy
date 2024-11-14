@@ -60,11 +60,11 @@ const ManageContent: React.FC = () => {
       
       <div className="text-center ">
         
-        <Card className='bg-transparent lg:w-[700px] text-centershadow-none border-transparent'>
+        <Card className='bg-gray-700 bg-opacity-90 lg:w-[700px] text-center shadow-none border-transparent'>
           <CardHeader>
             <CardTitle>
-            <div className="flex text-3xl font-bold">Your Notes</div>
-            <div className="font-semibold flex text-base   text-slate-600">Subjects,units and PDFs...</div>
+            <div className="flex text-3xl text-off-white font-bold">Your Notes</div>
+            <div className="flex text-sm   text-slate-400">Subjects,units and PDFs...</div>
             </CardTitle>
           </CardHeader>
           <div className='space-y-4'>
@@ -132,7 +132,7 @@ function AddNotesDialog({ refreshItems }: { refreshItems: () => void }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-1/2 bg-teal-950 text-white font-semibold hover:bg-blue-950 rounded-lg px-4 py-2">
+        <Button className="w-1/2 bg-slate-500 text-white font-semibold hover:bg-blue-950 rounded-lg px-4 py-2">
           <Plus className="mr-2" /> Add Notes
         </Button>
       </DialogTrigger>
@@ -184,17 +184,17 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
   };
 
   return (
-    <div className='bg-white bg-opacity-30 rounded-lg shadow-md p-4'>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">Topics</h3>
+    <div className='rounded-lg shadow-md p-4'>
+      <h3 className="text-xl font-semibold text-off-white mb-4">Topics</h3>
       {uploadedItems.length>0 ? (
         <div className=''>
 
-          <Card className='h-auto bg-white bg-opacity-20 p-1 flex-auto '>
+          <Card className='h-auto bg-white border-transparent bg-opacity-20 p-1 flex-auto '>
         {uniqueSubjects.map((subject, index) => (
           <Button
             key={index}
             variant="outline"
-            className="w-auto text-xl bg-slate-700 bg-opacity-20 text-center items-center"
+            className="w-auto text-xl bg-slate-700  border-transparent bg-opacity-20 text-center items-center"
             onClick={() => openDialog(subject)}
           >
             <span>{subject}</span>
