@@ -12,7 +12,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 const ManageContent: React.FC = () => {
   const [uploadedItems, setUploadedItems] = useState<Array<{ subjectName: string; unitName: string; pdfUrl: string; fileName: string }>>([]);
   const [selectedItemToDelete, setSelectedItemToDelete] = useState<string | null>(null);
-  
+  const [loading, setLoading] = useState(true);
+
   const userId = sessionStorage.getItem('userSub');
   if (!userId) {
     return <p>Please log in to manage content.</p>;
@@ -24,13 +25,15 @@ const ManageContent: React.FC = () => {
 
   const fetchUploadedItems = async () => {
     try {
+      setLoading(true);
       const subjects = await fetchSubjects();
       setUploadedItems(subjects);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
-
   const handleDelete = async () => {
     if (!selectedItemToDelete) {
       alert('Please select an item to delete');
@@ -49,6 +52,8 @@ const ManageContent: React.FC = () => {
       alert('Failed to delete data');
     }
   };
+
+  if (loading) return <p>Loading...</p>; 
 
   return (
     <div className="grid justify-center bg-transparent ">

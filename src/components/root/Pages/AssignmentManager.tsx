@@ -12,6 +12,7 @@ import { fetchSubjects, deleteDataFromDynamoDB, uploadDataToDynamoDB } from "../
 const AssignmentManager : React.FC = () => {
     const [uploadedItems, setUploadedItems] = useState<Array<{ subjectName: string; unitName: string; pdfUrl: string; fileName: string }>>([]);
     const [selectedItemToDelete, setSelectedItemToDelete] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
     const userId = sessionStorage.getItem('userSub');
     if (!userId) {
@@ -24,10 +25,13 @@ const AssignmentManager : React.FC = () => {
   
     const fetchUploadedItems = async () => {
       try {
+        setLoading(true);
         const subjects = await fetchSubjects();
         setUploadedItems(subjects);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
   
@@ -50,7 +54,7 @@ const AssignmentManager : React.FC = () => {
       }
     };
      
-  
+    if (loading) return <p>Loading...</p>;
 
     return (
       <div className="grid justify-center bg-transparent ">

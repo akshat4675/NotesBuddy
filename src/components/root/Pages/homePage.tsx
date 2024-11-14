@@ -12,6 +12,9 @@ const HomePage = () => {
         <Head/>
         <SideBar/>
         </div> 
+        <div>
+          
+        </div>
       </>
   )
 };
