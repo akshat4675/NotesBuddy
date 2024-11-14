@@ -30,7 +30,7 @@ const Schedule = () => {
         <div className="lg:justify-items-center pt-1">
           
           <div className="">
-          <Card className="bg-[url('src/assets/Images/scheduleandtodos.jpg')]  h-[700px] lg:w-[900px] lg:h-[560px] bg-opacity-20 border-transparent">
+          <Card className="bg-[url('https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/scheduleandtodos.jpg')]  h-[700px] lg:w-[900px] lg:h-[560px] bg-opacity-20 border-transparent">
               <CardHeader>
                 <CardTitle>Personal Organizer</CardTitle>
               </CardHeader>
