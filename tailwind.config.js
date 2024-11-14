@@ -54,9 +54,7 @@ theme: {
 			'light-3': '#7878A3',
 			'light-4': '#5C5C7B'
 		},
-		screens: {
-			xs: '480px'
-		},
+		
 		width: {
 			'420': '420px',
 			'465': '465px'

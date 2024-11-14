@@ -7,6 +7,8 @@ import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogT
 import {  Plus } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
+
+
 const ManageContent: React.FC = () => {
   const [uploadedItems, setUploadedItems] = useState<Array<{ subjectName: string; unitName: string; pdfUrl: string; fileName: string }>>([]);
   const [selectedItemToDelete, setSelectedItemToDelete] = useState<string | null>(null);
@@ -49,32 +51,34 @@ const ManageContent: React.FC = () => {
   };
 
   return (
-    <div className="grid justify-center pt-6 bg-transparent ">
+    <div className="grid justify-center bg-transparent ">
+      
       <div className="text-center ">
         
-        <Card className='bg-slate-500 text-center bg-opacity-20 p-6 rounded-lg shadow-md max-w-xl mx-auto'>
+        <Card className='bg-transparent lg:w-[700px] text-centershadow-none border-transparent'>
           <CardHeader>
             <CardTitle>
-            <h1 className="text-2xl pb-5 text-slate-950">Upload & delete Notes</h1>
+            <div className="flex text-3xl font-bold">Your Notes</div>
+            <div className="font-semibold flex text-base   text-slate-600">Subjects,units and PDFs...</div>
             </CardTitle>
           </CardHeader>
           <div className='space-y-4'>
             <NotesCard uploadedItems={uploadedItems} />
             <AddNotesDialog refreshItems={fetchUploadedItems} />
-            <div className='pt-4'>
+            <div className='pt-4 pb-2'>
               <select
-                className='w-full bg-white bg-opacity-20 p-2 rounded-lg text-center'
+                className='lg:-3/4  bg-white bg-opacity-50 lg:p-3 p-1   rounded-lg text-center'
                 value={selectedItemToDelete || ''}
                 onChange={(e) => setSelectedItemToDelete(e.target.value)}
               >
-                <option value="" disabled>Select a PDF</option>
+                <option value="" disabled>Select the PDF you want to delete</option>
                 {uploadedItems.map((item, index) => (
                   <option key={index} value={`${item.subjectName}|${item.unitName}|${item.fileName}`}>
                     {`${item.fileName}`}
                   </option>
                 ))}
               </select>
-              <Button variant="ghost" className='text-black hover:bg-teal-950 hover:text-white text-sm mt-2 w-full' onClick={handleDelete}>
+              <Button variant="default" className='text-white hover:bg-teal-950 ml-2 hover:text-white text-sm mt-2 ml-1s  lg:w-min ' onClick={handleDelete}>
                 Delete! 
               </Button>
             </div>
@@ -180,12 +184,12 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
       {uploadedItems.length>0 ? (
         <div className=''>
 
-          <Card className='h-auto bg-white bg-opacity-40 flex-auto '>
+          <Card className='h-auto bg-white bg-opacity-20 p-1 flex-auto '>
         {uniqueSubjects.map((subject, index) => (
           <Button
             key={index}
             variant="outline"
-            className="w-auto text-xl bg-transparent  text-center items-center"
+            className="w-auto text-xl bg-slate-700 bg-opacity-20 text-center items-center"
             onClick={() => openDialog(subject)}
           >
             <span>{subject}</span>

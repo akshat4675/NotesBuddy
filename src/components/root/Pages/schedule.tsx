@@ -9,6 +9,8 @@ import { ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Label } from "@/components/ui/label";
 import { SideBar } from "../comps/sidebar";
 import { Head } from "../comps/header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { addToDo, getToDos, completeToDo, deleteToDo } from '../Funtions/todo';
 
 // Define event structure
 interface Event {
@@ -21,19 +23,40 @@ const Schedule = () => {
   
   return (
     <>
-    <div className="h-screen">
     <div>
         <Head/>
         <SideBar/>
         </div>
-        <div className="lg:justify-items-center pt-16 grid grid-cols-1 ">
+        <div className="lg:justify-items-center pt-2">
+          
           <div>
-            <Card className=" lg:w-[700px] md:mx-10 bg-sky-100 text-center bg-opacity-40  ">
-              <ScheduleCard/>
+          <Card className="bg-slate-400 lg:w-[900px] bg-opacity-20 border-transparent">
+              <CardHeader>
+                <CardTitle>Personal Organizer</CardTitle>
+              </CardHeader>
+              <CardContent><Tabs defaultValue="schedule">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="schedule">Schedule</TabsTrigger>
+                    <TabsTrigger value="todos">To-Do List</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="schedule">
+                    <div>
+                      <div className="flex text-xl font-bold">Your Schedule </div>
+                      <div className="font-semibold flex text-sm text-slate-600 pb-5">Reminder , deadlines etc...</div>
+                    <ScheduleCard/>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="todos">
+                    <div>
+                    <ToDoList/>
+                    </div>
+                  </TabsContent>
+                </Tabs>
+                
+              </CardContent>
             </Card>
           </div>
-        </div> 
-        </div>  
+        </div>   
         </> 
   );
 };
@@ -103,19 +126,13 @@ const ScheduleCard =()=> {
 
   return (
     <>
-    <div >
-          <Card className="bg-transparent border-transparent">
-            <CardHeader>
-              <CardTitle className="text-center">Schedule</CardTitle>
-              <CardDescription className=" text-slate-400 text-xs text-center">Reminders , deadlines , etc... </CardDescription>  
-            </CardHeader>
-            <CardContent>
+         <div className="grid grid-cols-1">
               <div>
                 {events.length > 0 ? (
                   <ul>
                     {events.map((event) => (
                       <li
-                        className="flex justify-between items-center bg-muted p-2 rounded"
+                        className="flex justify-between items-center bg-muted rounded"
                         key={event.id}
                       >
                         <Label className="font-bold text-lg">{event.eventName}</Label>
@@ -132,19 +149,19 @@ const ScheduleCard =()=> {
                   <p>No events found.</p>
                 )}
               </div>
-              <div className="grid pt-5 grid-cols-2 gap-2">
+              <div className="grid pt-5 grid-cols-1 lg:grid-cols-2 gap-1">
                 <div>
-                  <Label className="flex" >Add New Event</Label>
+                  <Label className="flex pb-2 font-bold pt-2" >Add New Event</Label>
                   <Input
                     type="text"
                     placeholder="Event Name"
                     value={newEventName}
                     onChange={(e) => setNewEventName(e.target.value)}
-                    className="bg-opacity-20 font-bold text-teal-950"
+                    className="bg-opacity-20  font-bold text-teal-950"
                   />
                 </div>
-                <div>
-                  <Label className="flex" >Date</Label>
+                <div className="pb-2">
+                  <Label className="flex pb-2 font-bold pt-2" >Date</Label>
                   <Input
                     type="date"
                     value={newEventDate}
@@ -153,20 +170,99 @@ const ScheduleCard =()=> {
                   />
                 </div>
                 </div>
-            </CardContent>
-            <CardFooter>
-              
-                <Button className="w-full" onClick={handleAddEvent}>
+                <Button className="w-1/2" onClick={handleAddEvent}>
                   Add Event
                 </Button>
-
-            </CardFooter>
-          </Card>
-        </div>
+                </div>
     </>
   )
 };
 
+type ToDo = {
+  taskId: string;
+  taskDescription: string;
+  isCompleted: boolean;
+};
 
+export function ToDoList() {
+  const [toDos, setToDos] = useState<ToDo[]>([]);
+  const [taskDescription, setTaskDescription] = useState("");
+
+  useEffect(() => {
+    fetchToDos();
+  }, []);
+
+  const fetchToDos = async () => {
+    const todos = await getToDos();
+    setToDos(todos || []);
+  };
+
+  const handleAddToDo = async () => {
+    if (taskDescription) {
+      await addToDo(taskDescription);
+      setTaskDescription("");
+      fetchToDos();
+    }
+  };
+
+  // Toggle `isCompleted` state
+  const handleComplete = async (taskId: string, currentStatus: boolean) => {
+    await completeToDo(taskId, !currentStatus);  // Toggle the status
+    fetchToDos();
+  };
+
+  const handleDelete = async (taskId: string) => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      await deleteToDo(taskId);
+      fetchToDos();
+    }
+  };
+
+
+  return (
+    <>
+      <div className="lg:pl-2  ">
+        <h1 className="font-bold text-xl pb-2">Your TO-Dos</h1>
+      </div>
+      <ul>
+      {toDos.map((todo) => (
+      <li key={todo.taskId} className="flex justify-between items-center bg-muted p-2 rounded">
+      <div className="flex gap-1">
+      <Label className="text-base" style={{ textDecoration: todo.isCompleted ? 'line-through' : 'none' }}>
+      {todo.taskDescription}
+      </Label>
+      <Label className="font-bold text-lg">{todo.isCompleted}</Label>
+      <Input
+      type="checkbox"
+      checked={todo.isCompleted}
+      onChange={() => handleComplete(todo.taskId,todo.isCompleted)}
+      className="size-auto"
+      />
+      </div>
+      <button onClick={() => handleDelete(todo.taskId,)}>
+      <DeleteIcon />
+      </button>
+      </li>
+      ))}
+      </ul>  
+      <div className="pt-3 gap-3">
+      <Input
+      type="text"
+      placeholder="Add a new task"
+      value={taskDescription}
+      onChange={(e) => setTaskDescription(e.target.value)}
+      className="bg-opacity-20 lg:text-xl text-xs font-bold"
+      />
+      <div className="pt-2">
+      <Button 
+      onClick={handleAddToDo} variant={"secondary"} 
+      className="w-1/2 text-xl font-bold">
+        Add
+      </Button>
+      </div>
+      </div>
+    </>
+  );
+}
 
 export default Schedule;

@@ -8,12 +8,12 @@ export function Head()
 {
     return (
         <>
-        <header className="flex items-center justify-between p-4 bg-opacity-40 lg:bg-opacity-80 bg-sky-200 shadow-md">
+        <header className="flex items-center lg:pl-6 justify-between p-4  bg-black  shadow-md">
         <div className="flex items-center space-x-4">
         <div className="w-full h-1 bg-primary rounded-full flex items-center justify-center">
-        <span className="text-primary-foreground font-bold text-xl"><NotebookPen className="size-9 text-blue-600"/></span>
+        <span className="text-primary-foreground font-bold text-xl"><NotebookPen className="size-9 text-blue-400"/></span>
         </div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-teal-950">StudyBuddy</h1>
+        <h1 className="text-2xl lg:text-3xl font-bold text-sky-100">StudyBuddy</h1>
         </div>
         <Sheett/>
         </header>
@@ -26,7 +26,7 @@ function Sheett(){
       <Sheet>
             <SheetTrigger asChild>
              <Button variant="secondary" className="lg:hidden bg-transparent   hover:bg-sky-100  ">
-             <Menu className=" text-blue-950 " />
+             <Menu className=" text-white " />
              </Button>
             </SheetTrigger> 
             <SheetContent side="left" className=" bg-black h-full w-auto overflow-hidden ">

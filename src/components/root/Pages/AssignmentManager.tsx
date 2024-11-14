@@ -53,32 +53,32 @@ const AssignmentManager : React.FC = () => {
   
 
     return (
-      <div className="grid justify-center pt-6 bg-transparent ">
+      <div className="grid justify-center bg-transparent ">
         <div className="text-center ">
           
-          <Card className='bg-slate-500 text-center bg-opacity-20 p-6 rounded-lg shadow-md max-w-xl mx-auto'>
+          <Card className='bg-transparent lg:w-[700px] text-center shadow-none border-transparent'>
             <CardHeader>
               <CardTitle>
-              <h1 className="text-2xl pb-5 text-slate-950">Your Assignments</h1>
+              <div className="flex text-3xl font-bold">Your Assignements</div>
               </CardTitle>
             </CardHeader>
             <div className='space-y-4'>
               <NotesCard uploadedItems={uploadedItems} />
               <AddNotesDialog refreshItems={fetchUploadedItems} />
-              <div className='pt-4'>
+              <div className='pt-4 pb-2'>
                 <select
-                  className='w-full bg-white bg-opacity-20 p-2 rounded-lg text-center'
+                  className='lg:-3/4  bg-white bg-opacity-50 lg:p-3 p-1  rounded-lg text-center'
                   value={selectedItemToDelete || ''}
                   onChange={(e) => setSelectedItemToDelete(e.target.value)}
                 >
-                  <option value="" disabled>Select a PDF</option>
+                  <option value="" disabled>Select the PDF you want to delete</option>
                   {uploadedItems.map((item, index) => (
                     <option key={index} value={`${item.subjectName}|${item.unitName}|${item.fileName}`}>
                       {`${item.fileName}`}
                     </option>
                   ))}
                 </select>
-                <Button variant="ghost" className='text-black hover:bg-teal-950 hover:text-white text-sm mt-2 w-full' onClick={handleDelete}>
+                <Button variant="default" className='text-white hover:bg-teal-950 ml-2 hover:text-white text-sm mt-2 ml-1s  lg:w-min ' onClick={handleDelete}>
                   Delete! 
                 </Button>
               </div>
@@ -128,7 +128,7 @@ const AssignmentManager : React.FC = () => {
       <Dialog>
         <DialogTrigger asChild>
           <Button className="w-1/2 bg-teal-950 text-white font-semibold hover:bg-blue-950 rounded-lg px-4 py-2">
-            <Plus className="mr-2" /> Add Notes
+            <Plus className="mr-2" /> Add Assignments
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md items-center p-6">
@@ -183,12 +183,12 @@ const AssignmentManager : React.FC = () => {
         <h3 className="text-xl font-semibold text-gray-800 mb-4">Subjects</h3>
         {uploadedItems.length>0 ? (
           <div className=''>
-            <Card className='h-auto bg-white bg-opacity-40 flex-auto '> 
+            <Card className='h-auto bg-white bg-opacity-20 p-1 flex-auto '> 
           {uniqueSubjects.map((subject, index) => (
             <Button
               key={index}
               variant={"outline"}
-              className="w-auto text-xl bg-transparent   text-center items-center"
+              className="w-auto text-xl bg-slate-700 bg-opacity-20 text-center items-center"
               onClick={() => openDialog(subject)}>
               <span>{subject}</span>
             </Button>
