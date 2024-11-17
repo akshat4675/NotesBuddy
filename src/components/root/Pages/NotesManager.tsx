@@ -60,10 +60,10 @@ const ManageContent: React.FC = () => {
       
       <div className="text-center ">
         
-        <Card className='bg-gray-700 bg-opacity-90 lg:w-[700px] text-center shadow-none border-transparent'>
+        <Card className='bg-dark-4 bg-opacity-90 lg:w-[400px] text-center border-transparent '>
           <CardHeader>
             <CardTitle>
-            <div className="flex text-3xl text-off-white font-bold">Your Notes</div>
+            <div className="flex text-2xl text-off-white font-bold">Your Notes</div>
             <div className="flex text-sm   text-slate-400">Subjects,units and PDFs...</div>
             </CardTitle>
           </CardHeader>
@@ -72,7 +72,7 @@ const ManageContent: React.FC = () => {
             <AddNotesDialog refreshItems={fetchUploadedItems} />
             <div className='pt-4 pb-2'>
               <select
-                className='lg:-3/4  bg-white bg-opacity-50 lg:p-3 p-1   rounded-lg text-center'
+                className='lg:-3/4  bg-white bg-opacity-50 lg:p-2 p-1 text-sm  rounded-sm text-center'
                 value={selectedItemToDelete || ''}
                 onChange={(e) => setSelectedItemToDelete(e.target.value)}
               >
@@ -83,7 +83,7 @@ const ManageContent: React.FC = () => {
                   </option>
                 ))}
               </select>
-              <Button variant="default" className='text-white hover:bg-teal-950 ml-2 hover:text-white text-sm mt-2 ml-1s  lg:w-min ' onClick={handleDelete}>
+              <Button variant="default" className='text-white hover:bg-teal-950 ml-2 hover:text-white text-sm mt-2 ml-1s  lg:w-min  ' onClick={handleDelete}>
                 Delete! 
               </Button>
             </div>
@@ -184,17 +184,17 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
   };
 
   return (
-    <div className='rounded-lg shadow-md p-4'>
-      <h3 className="text-xl font-semibold text-off-white mb-4">Topics</h3>
+    <div className='rounded-lg p-4'>
+     
       {uploadedItems.length>0 ? (
         <div className=''>
 
-          <Card className='h-auto bg-white border-transparent bg-opacity-20 p-1 flex-auto '>
+          <Card className='h-auto bg-transparent border-transparent shadow-none border-none p-1 flex-auto '>
         {uniqueSubjects.map((subject, index) => (
           <Button
             key={index}
-            variant="outline"
-            className="w-auto text-xl bg-slate-700  border-transparent bg-opacity-20 text-center items-center"
+            variant="default"
+            className="w-auto text-xl bg-slate-950  border-transparent text-center items-center"
             onClick={() => openDialog(subject)}
           >
             <span>{subject}</span>
@@ -202,7 +202,7 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
           </Button>
         ))}
         </Card>
-        </div>):(<div>No Subjects , Please upload from below !</div>)}
+        </div>):(<div >No Subjects , Please upload from below !</div>)}
       
  
       {/* Dialog for displaying notes by subject */}

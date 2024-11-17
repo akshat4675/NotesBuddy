@@ -18,7 +18,7 @@ const StudyMaterialsPage = () => {
       </div>
        
       <div className="lg:justify-items-center pt-2">
-          <Card className="bg-[url('https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/notes%26assignments.png')] bg-blend-normal pb-10 lg:w-[900px] h-[700px] lg:h-[590px] bg-opacity-20 border-transparent">
+          <Card className="bg-slate-100 pb-10 lg:w-[900px] h-[700px] lg:h-[590px] bg-opacity-20 border-transparent">
         <Tabs defaultValue="notes">
         <TabsList className="mb-4">
         <TabsTrigger value="notes">Notes</TabsTrigger>

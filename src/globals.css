@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-[url('https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/bgImg.jpg')]   bg-scroll bg-cover text-off-white font-inter;
+    @apply bg-gradient-to-r from-gray-950 to-slate-800  bg-scroll bg-cover text-off-white font-inter;
   }
   :root {
     --radius: 0.5rem;

@@ -2,13 +2,11 @@ import "@/globals.css";
 import { DeleteIcon} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent,  CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { getAllEvents, addEvent, deleteEventByName } from "../Funtions/dynamoDBService";
 import { ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Label } from "@/components/ui/label";
-import { SideBar } from "../comps/sidebar";
-import { Head } from "../comps/header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { addToDo, getToDos, completeToDo, deleteToDo } from '../Funtions/todo';
 
@@ -23,31 +21,29 @@ const Schedule = () => {
   
   return (
     <>
-    <div>
-        <Head/>
-        <SideBar/>
-        </div>
-        <div className="lg:justify-items-center pt-1">
+    
+        <div className="lg:justify-items-center  pt-1">
           
           <div className="">
-          <Card className="bg-[url('https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/scheduleandtodos.jpg')]  h-[700px] lg:w-[900px] lg:h-[560px] bg-opacity-20 border-transparent">
-              <CardHeader>
-                <CardTitle>Personal Organizer</CardTitle>
-              </CardHeader>
-              <CardContent><Tabs defaultValue="schedule">
-                  <TabsList className="mb-4">
-                    <TabsTrigger value="schedule">Schedule</TabsTrigger>
-                    <TabsTrigger value="todos">To-Do List</TabsTrigger>
+          <Card className="bg-transparent  h-[700px]  border-transparent">
+             
+              <CardContent>
+                <Tabs defaultValue="schedule" >
+                  <TabsList className="mb-4 bg-slate-800">
+                    <TabsTrigger value="schedule" className="text-white">Schedule</TabsTrigger>
+                    <TabsTrigger value="todos" className="text-white">To-Do List</TabsTrigger>
                   </TabsList>
                   <TabsContent value="schedule">
-                    <div className="bg-stone-500 p-5 pt-5 bg-opacity-90 rounded-md">
+                    <div className="bg-violet-100 h-[450px] p-5 pt-5 bg-opacity-90 rounded-md">
                       <div className="flex text-2xl font-bold">Your Schedule </div>
                       <div className=" flex text-sm  pb-5">Reminder , deadlines etc...</div>
                     <ScheduleCard/>
                     </div>
                   </TabsContent>
                   <TabsContent value="todos">
-                    <div className="bg-stone-500 p-5 bg-opacity-90 rounded-md ">
+                  <div className="bg-violet-100 h-[450px] p-5 pt-5 bg-opacity-90 rounded-md">
+                      <div className="flex text-2xl font-bold">Your ToDos </div>
+                      <div className=" flex text-sm  pb-5">Tasks , goals etc...</div>
                     <ToDoList/>
                     </div>
                   </TabsContent>
@@ -146,7 +142,7 @@ const ScheduleCard =()=> {
                     ))}
                   </ul>
                 ) : (
-                  <p>No events found.</p>
+                  <p>No events added yet.</p>
                 )}
               </div>
               <div className="grid pt-5 grid-cols-1 lg:grid-cols-2 gap-1">
@@ -157,7 +153,7 @@ const ScheduleCard =()=> {
                     placeholder="Event Name"
                     value={newEventName}
                     onChange={(e) => setNewEventName(e.target.value)}
-                    className="bg-opacity-20  font-bold text-teal-950"
+                    className=" bg-gray-400 placeholder:text-slate-800  font-bold"
                   />
                 </div>
                 <div className="pb-2">
@@ -166,7 +162,7 @@ const ScheduleCard =()=> {
                     type="date"
                     value={newEventDate}
                     onChange={(e) => setNewEventDate(e.target.value)}
-                    className="bg-opacity-20  text-teal-950"
+                    className="bg-gray-400 placeholder:text-slate-800 font-bold"
                   />
                 </div>
                 </div>
@@ -221,9 +217,9 @@ export function ToDoList() {
 
   return (
     <>
-      <div className="lg:pl-2  ">
-        <h1 className="font-bold text-xl pb-2">Your TO-Dos</h1>
-      </div>
+      
+      {toDos.length >0? 
+      (
       <ul>
       {toDos.map((todo) => (
       <li key={todo.taskId} className="flex justify-between items-center bg-muted p-2 rounded">
@@ -244,19 +240,23 @@ export function ToDoList() {
       </button>
       </li>
       ))}
-      </ul>  
+      </ul> 
+     ):(<div className="flex"><h1>No Tasks added yet.</h1></div>) }
+      
       <div className="pt-3 gap-3">
+      
       <Input
       type="text"
       placeholder="Add a new task"
       value={taskDescription}
       onChange={(e) => setTaskDescription(e.target.value)}
-      className="bg-opacity-20 lg:text-xl text-xs font-bold"
+      className=" bg-gray-400 placeholder:text-slate-700 lg:text-xl text-xl font-bold"
       />
+      
       <div className="pt-2">
       <Button 
       onClick={handleAddToDo} variant={"secondary"} 
-      className="w-1/2 text-xl font-bold">
+      className="w-1/2 bg-gray-800 text-white text-xl">
         Add
       </Button>
       </div>
