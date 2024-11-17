@@ -1,12 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import "@/globals.css";
-import { Menu, NotebookPen } from "lucide-react";
+import { LogOut, Menu, NotebookPen } from "lucide-react";
 import { SidePanel } from "./sidebar";
+import { useNavigate } from "react-router";
 
 export function Head()
 
-{
+{  
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+  sessionStorage.clear();
+  navigate('/login');
+};
 
     return (
         <>
@@ -17,7 +24,7 @@ export function Head()
               </div>
                <h1 className="text-2xl lg:text-3xl font-bold text-white pr-10">NotesVerse</h1>
                </div>
-        
+        <Button onClick={handleLogout} variant={"default"} className="bg-off-white hover:bg-rose-300 text-black lg:mr-40 lg:mt-5" ><LogOut/></Button>
         </header>
         </>
     )

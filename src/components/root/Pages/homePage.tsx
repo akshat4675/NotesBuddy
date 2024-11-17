@@ -29,12 +29,12 @@ const HomePage = () => {
         </div>
         <div className="grid lg:grid-cols-2  gap-10 pt-10 lg:mx-40" >
           <div>
-          <Card className="bg-slate-100 lg:w-[500px]  h-[700px] lg:h-[700px]   bg-opacity-20 border-transparent">
+          <Card className="bg-slate-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[700px]   bg-opacity-20 border-transparent">
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-center font-inter text-cyan-50">Study Organizer</CardTitle>
             </CardHeader>
         <Tabs defaultValue="notes">
-        <TabsList className="mb-4 ml-5 bg-slate-700">
+        <TabsList className="mb-4 ml-5 bg-slate-800 shadow-violet-300  shadow-sm">
         <TabsTrigger  value="notes" className="text-sm text-white">Notes</TabsTrigger>
         <TabsTrigger value="todos" className="text-sm text-white">Assignments</TabsTrigger>
         </TabsList>
@@ -52,7 +52,7 @@ const HomePage = () => {
         </Card> 
           </div>
           <div>
-            <Card className="bg-slate-100 lg:w-[500px]  h-[700px] lg:h-[700px]   bg-opacity-20 border-transparent">
+            <Card className="bg-slate-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[700px]   bg-opacity-20 border-transparent">
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-center font-inter text-cyan-50">Time Organizer</CardTitle>
             </CardHeader>

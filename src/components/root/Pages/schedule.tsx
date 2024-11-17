@@ -29,7 +29,7 @@ const Schedule = () => {
              
               <CardContent>
                 <Tabs defaultValue="schedule" >
-                  <TabsList className="mb-4 bg-slate-800">
+                  <TabsList className="mb-4 bg-slate-800 shadow-violet-300 shadow-sm" >
                     <TabsTrigger value="schedule" className="text-white">Schedule</TabsTrigger>
                     <TabsTrigger value="todos" className="text-white">To-Do List</TabsTrigger>
                   </TabsList>

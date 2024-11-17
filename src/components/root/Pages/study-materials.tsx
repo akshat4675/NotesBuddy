@@ -20,7 +20,7 @@ const StudyMaterialsPage = () => {
       <div className="lg:justify-items-center pt-2">
           <Card className="bg-slate-100 pb-10 lg:w-[900px] h-[700px] lg:h-[590px] bg-opacity-20 border-transparent">
         <Tabs defaultValue="notes">
-        <TabsList className="mb-4">
+        <TabsList className="mb-4 bg-slate-800 shadow-violet-300 shadow-sm">
         <TabsTrigger value="notes">Notes</TabsTrigger>
         <TabsTrigger value="todos">Assignments</TabsTrigger>
         </TabsList>
