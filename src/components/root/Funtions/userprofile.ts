@@ -31,9 +31,7 @@ const client = new DynamoDBClient({
 const docClient = DynamoDBDocumentClient.from(client);
 
 // Utility function to get userId from session storage
-const getUserId = (): string | null => {
-  return sessionStorage.getItem("userSub") || null;
-};
+
 
 const TableName = "userinfo"; // Replace with your DynamoDB table name
 
