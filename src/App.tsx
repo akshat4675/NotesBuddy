@@ -6,6 +6,7 @@ import ConfirmPage from "./components/auth/confirmPage"
 import HomePage from "./components/root/Pages/homePage"
 import StudyMaterialsPage from './components/root/Pages/study-materials';
 import SchedulePage from './components/root/Pages/schedule';
+import UserProfile from './components/auth/userprofile';
 
 
 
@@ -20,6 +21,7 @@ const App = () => {
     <BrowserRouter>
     <Routes>
       <Route element={isAuthenticated() ? <Navigate replace to="/home" /> : <Navigate replace to="/login" />}  path="/"></Route>
+      <Route path="/User" element={isAuthenticated() ? <UserProfile /> : <Navigate replace to="/login" />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/confirm" element={<ConfirmPage />} />
       <Route path="/home" element={isAuthenticated() ? <HomePage /> : <Navigate replace to="/login" />} />

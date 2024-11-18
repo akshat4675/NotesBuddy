@@ -1,7 +1,7 @@
 
 //Imports 
 'use client'
-import { signIn, signUp } from './authService';
+import {  signIn, signUp } from './authService';
 import { Eye, EyeOff, Mail, Lock, BookOpen} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,7 +9,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import "@/globals.css";
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router';
+
+
 
 export default function AuthPage() {
   const [email, setEmail] = useState('');
@@ -36,8 +38,13 @@ export default function AuthPage() {
       } else {
         console.error('SignIn session or AccessToken is undefined.');
       }
+      
     } catch (error) {
+      if(error=='UserNotConfirmedException: User is not confirmed.')
+        {navigate('/confirm')}
+      else 
       alert(`Sign in failed: ${error}`);
+      
     }
   };
 
@@ -46,15 +53,13 @@ export default function AuthPage() {
 
   const handleSignUp = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
     try {
       await signUp(email, password);
-      navigate('/confirm', { state: { email } });
-    } catch (error) {
+      navigate("/confirm")
+      } 
+    catch (error) {
       alert(`Sign up failed: ${error}`);
+
     }
   };
 

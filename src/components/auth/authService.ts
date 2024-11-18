@@ -7,12 +7,28 @@ import {
   AuthFlowType,
   GetUserCommand,
   GetUserCommandOutput,
+  ResendConfirmationCodeCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import config from "@/config.json";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+const idToken: string | null = sessionStorage.getItem('idToken');
+const identityClient = new CognitoIdentityClient({ region: 'ap-south-1' });
 
+const Credentials = fromCognitoIdentityPool({
+  client: identityClient,
+  identityPoolId: 'ap-south-1:0552001a-378b-4154-be28-84a0ea5b9f10',
+  logins: {
+    'cognito-idp.ap-south-1.amazonaws.com/ap-south-1_epWmiSTO9': idToken as string,
+  },
+});
+
+
+export default Credentials;
 // Initialize Cognito Client
 export const cognitoClient = new CognitoIdentityProviderClient({
   region: config.region,
+  credentials: Credentials,
 });
 
 // Utility function to parse JWT and extract payload
@@ -87,6 +103,9 @@ export const signUp = async (email: string, password: string) => {
   }
 };
 
+
+
+
 // ConfirmSignUp Function: Verify user's email with the confirmation code
 export const confirmSignUp = async (username: string, code: string) => {
   const params = {
@@ -127,6 +146,25 @@ export const getUserId = async (accessToken: string): Promise<string | null> => 
   } catch (error) {
     console.error("Error getting user ID: ", error);
     return null;
+  }
+};
+
+export const resendConfirmationCode = async (username: string) => {
+  try {
+    const params = {
+      ClientId: "29ii26cp64enchfiq0g14v5ls3", // Your Cognito App Client ID
+      Username: username,
+    };
+
+    // Call the AWS SDK API to resend the confirmation code
+    const command = new ResendConfirmationCodeCommand(params);
+    const data = await cognitoClient.send(command);
+
+    console.log("Confirmation code resent successfully", data);
+    return data; // You can return the response if needed
+  } catch (error) {
+    console.error("Error resending confirmation code", error);
+    throw new Error("Failed to resend confirmation code. Please try again later.");
   }
 };
 
