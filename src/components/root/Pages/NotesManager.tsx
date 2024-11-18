@@ -202,7 +202,7 @@ function NotesCard({ uploadedItems }: { uploadedItems: NoteItem[] }) {
           </Button>
         ))}
         </Card>
-        </div>):(<div >No Subjects , Please upload from below !</div>)}
+        </div>):(<div className='text-white' >No Subjects , Please upload from below !</div>)}
       
  
       {/* Dialog for displaying notes by subject */}

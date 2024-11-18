@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 
 
+
 export function Head()
 
 {  
@@ -20,7 +21,7 @@ export function Head()
 };
 
 const profile=()=>{
-  navigate('/user');
+  navigate('/edituser');
 }
     return (
         <>
@@ -40,6 +41,7 @@ const profile=()=>{
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Edit Profile</p>
+                    
                   </TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
