@@ -38,6 +38,11 @@ const EditProfilePage = () => {
         setPhone(userData.phone);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error occurred");
+
+        if(err==='Failed to fetch user data: User not found.')
+        {
+        navigate('/user')
+        }
       } finally {
         setIsLoading(false);
       }

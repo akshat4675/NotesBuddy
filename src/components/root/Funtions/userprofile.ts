@@ -47,7 +47,7 @@ export const fetchUserData = async (userId: string) => {
 
     const command = new GetItemCommand(params);
     const data = await docClient.send(command);
-
+    
     if (data.Item) {
       return {
         name: data.Item.name?.S || "",
@@ -59,6 +59,7 @@ export const fetchUserData = async (userId: string) => {
     }
   } catch (err) {
     throw new Error("Failed to fetch user data: " + (err instanceof Error ? err.message : "Unknown error"));
+    
   }
 };
 
