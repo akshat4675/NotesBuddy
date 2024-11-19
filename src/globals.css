@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-gradient-to-r from-gray-950 to-slate-800  bg-scroll bg-cover text-off-white font-inter;
+    @apply bg-gradient-to-r from-dark-4 to-neutral-800  bg-scroll bg-cover text-dark-4 font-inter;
   }
   :root {
     --radius: 0.5rem;

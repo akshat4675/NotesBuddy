@@ -25,7 +25,7 @@ const Schedule = () => {
         <div className="lg:justify-items-center  pt-1">
           
           <div className="">
-          <Card className="bg-transparent  h-[700px]  border-transparent">
+          <Card className="bg-transparent  lg:h-[500px]  border-transparent">
              
               <CardContent>
                 <Tabs defaultValue="schedule" >
@@ -34,14 +34,14 @@ const Schedule = () => {
                     <TabsTrigger value="todos" className="text-white">To-Do List</TabsTrigger>
                   </TabsList>
                   <TabsContent value="schedule">
-                    <div className="bg-violet-100 h-[450px] p-5 pt-5 bg-opacity-90 rounded-md">
+                    <div className="bg-violet-100 lg:h-[340px] p-5 pt-5 bg-opacity-90 rounded-md">
                       <div className="flex text-2xl font-bold">Your Schedule </div>
                       <div className=" flex text-sm  pb-5">Reminder , deadlines etc...</div>
                     <ScheduleCard/>
                     </div>
                   </TabsContent>
                   <TabsContent value="todos">
-                  <div className="bg-violet-100 h-[450px] p-5 pt-5 bg-opacity-90 rounded-md">
+                  <div className="bg-violet-100 h-[340px] p-5 pt-5 bg-opacity-90 rounded-md">
                       <div className="flex text-2xl font-bold">Your ToDos </div>
                       <div className=" flex text-sm  pb-5">Tasks , goals etc...</div>
                     <ToDoList/>
@@ -256,7 +256,7 @@ export function ToDoList() {
       <div className="pt-2">
       <Button 
       onClick={handleAddToDo} variant={"secondary"} 
-      className="w-1/2 bg-gray-800 text-white text-xl">
+      className="w-1/2 bg-gray-800  text-white text-xl">
         Add
       </Button>
       </div>

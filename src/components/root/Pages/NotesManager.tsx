@@ -60,7 +60,7 @@ const ManageContent: React.FC = () => {
       
       <div className="text-center ">
         
-        <Card className='bg-dark-4 bg-opacity-90 lg:w-[400px] text-center border-transparent '>
+        <Card className='bg-dark-4  lg:w-[400px] text-center border-transparent '>
           <CardHeader>
             <CardTitle>
             <div className="flex text-2xl text-off-white font-bold">Your Notes</div>
@@ -72,18 +72,18 @@ const ManageContent: React.FC = () => {
             <AddNotesDialog refreshItems={fetchUploadedItems} />
             <div className='pt-4 pb-2'>
               <select
-                className='lg:-3/4  bg-white bg-opacity-50 lg:p-2 p-1 text-sm  rounded-sm text-center'
+                className='lg:w-1/2  bg-white bg-opacity-50 lg:p-1 p-1 text-sm  rounded-sm text-center'
                 value={selectedItemToDelete || ''}
                 onChange={(e) => setSelectedItemToDelete(e.target.value)}
               >
-                <option value="" disabled>Select the PDF you want to delete</option>
+                <option value="" disabled>Select a PDF</option>
                 {uploadedItems.map((item, index) => (
                   <option key={index} value={`${item.subjectName}|${item.unitName}|${item.fileName}`}>
                     {`${item.fileName}`}
                   </option>
                 ))}
               </select>
-              <Button variant="default" className='text-white hover:bg-teal-950 ml-2 hover:text-white text-sm mt-2 ml-1s  lg:w-min  ' onClick={handleDelete}>
+              <Button variant="ghost" className='text-white hover:bg-teal-950 ml-2 hover:text-white text-sm  ' onClick={handleDelete}>
                 Delete! 
               </Button>
             </div>
@@ -132,8 +132,8 @@ function AddNotesDialog({ refreshItems }: { refreshItems: () => void }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-1/2 bg-slate-500 text-white font-semibold hover:bg-blue-950 rounded-lg px-4 py-2">
-          <Plus className="mr-2" /> Add Notes
+        <Button className="size-auto font-bold bg-slate-500 text-white hover:bg-blue-950 rounded-lg ">
+          <Plus className="" />Add
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md items-center p-6">

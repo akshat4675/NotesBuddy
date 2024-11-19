@@ -11,12 +11,14 @@ import EditProfilePage from './components/root/Pages/editProfile';
 
 
 
+
 const App = () => {
 
   const isAuthenticated = () => {
     const accessToken = sessionStorage.getItem('accessToken');
     return !!accessToken;
   };
+
 
   return (
     <BrowserRouter>

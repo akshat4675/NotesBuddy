@@ -7,10 +7,41 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AssignmentManager from "./AssignmentManager";
 import ManageContent from "./NotesManager";
 import Schedule from "./schedule";
-
+import {Publicnotes} from "./publicnotes";
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { Discuss } from "./discuss";
 
 const HomePage = () => {
+  const [ref, inView] = useInView({
+     // Animation triggers only once
+    threshold: 0.3,    // Trigger when 30% of the card is visible
+  });
 
+  const springAnimation = {
+    hidden: { opacity: 0, y: 200 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 15,
+      },
+    },
+  };
+  const slideInright = {
+    hidden: { opacity: 0, x: 300 }, // Start off-screen to the right
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 15,
+      },
+    },
+  };
 
   return (
       <>
@@ -28,10 +59,13 @@ const HomePage = () => {
         </Card>
         </div>
         <div className="grid lg:grid-cols-2  gap-10 pt-10 lg:mx-40" >
-          <div>
-          <Card className="bg-slate-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[700px]   bg-opacity-20 border-transparent">
+          <motion.div ref={ref}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={springAnimation}>
+          <Card  className="bg-cyan-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[600px]  border-transparent">
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-center font-inter text-cyan-50">Study Organizer</CardTitle>
+              <CardTitle className="text-3xl font-bold text-center font-inter text-slate-800">Study Organizer</CardTitle>
             </CardHeader>
         <Tabs defaultValue="notes">
         <TabsList className="mb-4 ml-5 bg-slate-800 shadow-violet-300  shadow-sm">
@@ -50,16 +84,31 @@ const HomePage = () => {
         </TabsContent>
         </Tabs>
         </Card> 
-          </div>
-          <div>
-            <Card className="bg-slate-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[700px]   bg-opacity-20 border-transparent">
+          </motion.div> 
+          <motion.div ref={ref}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={slideInright}>
+            <Card className="bg-rose-300 rounded-xl lg:w-[500px] lg:my-6 h-[700px] lg:h-[550px] border-transparent">
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-center font-inter text-cyan-50">Time Organizer</CardTitle>
+              <CardTitle className="text-3xl font-bold text-center font-inter text-slate-700">Time Organizer</CardTitle>
             </CardHeader>
             <Schedule/>
             </Card>
+          </motion.div>
+        </div>
+       
+        <div className="grid grid-cols-2 gap-20 lg:pl-44 pt-10 lg:pr-28 ">
+          <div className="pl-20">
+            <Publicnotes/>
+          </div>
+          <div >
+            <Card className="w-[400px] bg-emerald-200  h-[400px]">
+                    <Discuss/>   
+            </Card>
           </div>
         </div>
+          
         <div className="grid grid-cols-2 pt-2  lg:mx-40">
          
           <div className="lg:pl-24 lg:mx-10  pb-16 lg:pt-20 grid grid-cols">
