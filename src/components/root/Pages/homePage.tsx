@@ -8,40 +8,11 @@ import AssignmentManager from "./AssignmentManager";
 import ManageContent from "./NotesManager";
 import Schedule from "./schedule";
 import {Publicnotes} from "./publicnotes";
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Discuss } from "./discuss";
+import {Rocket} from "./rocket";
+
+
 
 const HomePage = () => {
-  const [ref, inView] = useInView({
-     // Animation triggers only once
-    threshold: 0.3,    // Trigger when 30% of the card is visible
-  });
-
-  const springAnimation = {
-    hidden: { opacity: 0, y: 200 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 15,
-      },
-    },
-  };
-  const slideInright = {
-    hidden: { opacity: 0, x: 300 }, // Start off-screen to the right
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 15,
-      },
-    },
-  };
 
   return (
       <>
@@ -59,10 +30,7 @@ const HomePage = () => {
         </Card>
         </div>
         <div className="grid lg:grid-cols-2  gap-10 pt-10 lg:mx-40" >
-          <motion.div ref={ref}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        variants={springAnimation}>
+          <div>
           <Card  className="bg-cyan-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[600px]  border-transparent">
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-center font-inter text-slate-800">Study Organizer</CardTitle>
@@ -84,77 +52,77 @@ const HomePage = () => {
         </TabsContent>
         </Tabs>
         </Card> 
-          </motion.div> 
-          <motion.div ref={ref}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        variants={slideInright}>
+        </div> 
+        <div> 
             <Card className="bg-rose-300 rounded-xl lg:w-[500px] lg:my-6 h-[700px] lg:h-[550px] border-transparent">
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-center font-inter text-slate-700">Time Organizer</CardTitle>
             </CardHeader>
             <Schedule/>
             </Card>
-          </motion.div>
+          </div>
         </div>
        
-        <div className="grid grid-cols-2 gap-20 lg:pl-44 pt-10 lg:pr-28 ">
-          <div className="pl-20">
+        <div className="grid lg:grid-cols-2 gap-20 lg:pl-44 pt-10 lg:pr-28 ">
+          <div className="lg:pl-20">
             <Publicnotes/>
           </div>
           <div >
-            <Card className="w-[400px] bg-emerald-200  h-[400px]">
-                    <Discuss/>   
+            <Card className="lg:w-[400px] bg-amber-200 h-[500px]">
+              <CardHeader>
+                <CardTitle className="font-bold text-dark-4 pt-2">Don't forget to park the Rocket</CardTitle>
+              </CardHeader>
+            <Rocket/>
             </Card>
           </div>
         </div>
           
-        <div className="grid grid-cols-2 pt-2  lg:mx-40">
+        <div className="grid grid-cols-2 pt-2 lg:mx-40">
          
-          <div className="lg:pl-24 lg:mx-10  pb-16 lg:pt-20 grid grid-cols">
-            <Card className="lg:size-[800px] w-[350px] h-auto bg-gray-400 bg-cover bg-opacity-50 ">
+          <div className="lg:pl-24 lg:mx-10 pb-16 lg:pt-20 grid grid-cols">
+            <Card className="lg:size-[800px] w-[330px] h-auto bg-gradient-to-r from-indigo-500  to-pink-500 bg-cover bg-opacity-20 ">
             <CardHeader>
               
-              <CardTitle className=" text-center pt-5 text-sm font-semibold font-inter text-orange-600">
+              <CardTitle className=" text-center pt-5 text-md font-semibold font-inter text-black">
               <div className=" ">
         <div className="h-1 pb-4 bg-primary rounded-full flex items-center justify-center">
-        <span className=""><ChartLine className="size-4 text-blue-900"/></span>
+        <span className=""><ChartLine className="size-7 text-orange-600"/></span>
         </div>
         <h1 className="">Why Choose Us</h1>
         </div>
                 </CardTitle>
             </CardHeader>
-            <div className="grid lg:gap-10 mx-5 gap-10 grid-cols-1 pt-5 lg:mx-24">
+            <div className="grid lg:gap-10 mx-4 gap-10 grid-cols-1 pt-5 lg:mx-24">
               <div>
-                <Card className="bg-slate-600 lg:h-[150px] h-auto border-transparent bg-opacity-50">
+                <Card className="bg-slate-900 lg:h-[150px] h-auto border-transparent bg-opacity-70">
                  <CardContent>
-                         <h1 className="text-center pt-4 font-bold font-sans">Simplicity at its Core</h1>
+                         <h1 className="text-center bg-slate-900pt-4 pt-2 text-off-white font-bold font-sans">Simplicity at its Core</h1>
                          <Card className="lg:h-[5px]  mt-2 border-transparent bg-orange-600 "></Card>
-                         <h2 className="text-base pt-2">Our intuitive design ensures you spend more time learning and less time figuring out how to organize.  </h2>
+                         <h2 className="text-sm text-off-white pt-2">Our intuitive design ensures you spend more time learning and less time figuring out how to organize.  </h2>
                  </CardContent>
                 </Card>
               </div>
               <div>
-                <Card className="bg-slate-600 lg:h-[150px] h-auto border-transparent bg-opacity-50">
+                <Card className="bg-slate-900 lg:h-[150px] h-auto border-transparent bg-opacity-70">
                 <CardContent>
-                         <h1 className="text-center pt-4 font-bold font-sans">Tailored for Students</h1>
+                         <h1 className="text-center pt-2 font-bold text-off-white font-sans">Tailored for Students</h1>
                          <Card className="h-[5px] mt-2 border-transparent bg-orange-600 "></Card>
-                         <h2 className="text-base pt-2">Built with students in mind, NotesVerse seamlessly adapts to your schedule, deadlines, and priorities.</h2>
+                         <h2 className="text-sm text-off-white pt-2">Built with students in mind, NotesVerse seamlessly adapts to your schedule, deadlines, and priorities.</h2>
                  </CardContent>
                 </Card>
               </div>
               <div>
-                <Card className="bg-slate-600 lg:h-[150px] h-auto border-transparent bg-opacity-50">
+                <Card className="bg-slate-900 lg:h-[150px] h-auto border-transparent bg-opacity-70">
                 <CardContent>
-                         <h1 className="text-center pt-4 font-bold font-sans">Accessible Anywhere, Anytime</h1>
+                         <h1 className="text-center pt-2 text-off-white font-bold font-sans">Accessible Anywhere, Anytime</h1>
                          <Card className="h-[5px] mt-2 border-transparent bg-orange-600 "></Card>
-                         <h2 className="text-base pt-2">Whether on your laptop or phone, your study plan goes wherever you do.</h2>
+                         <h2 className="text-sm text-off-white pt-2">Whether on your laptop or phone, your study plan goes wherever you do.</h2>
                  </CardContent>
                 </Card>
               </div>
             </div>
             
-              <div className=" pt-5 text-sm text-orange-600"><h1 className="text-center">Follow us</h1></div> 
+              <div className=" pt-5 text-lg font-bold text-black"><h1 className="text-center">Follow us</h1></div> 
            
             </Card>
           </div>
