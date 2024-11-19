@@ -63,12 +63,12 @@ const HomePage = () => {
           </div>
         </div>
        
-        <div className="grid lg:grid-cols-2 gap-20 lg:pl-44 pt-10 lg:pr-28 ">
+        <div className="grid lg:grid-cols-2 gap-5 lg:gap-20 lg:pl-44 pt-10 lg:pr-28 ">
           <div className="lg:pl-20">
             <Publicnotes/>
           </div>
           <div >
-            <Card className="lg:w-[400px] bg-amber-200 h-[500px]">
+            <Card className="lg:w-[400px] bg-amber-200 h-[400px]">
               <CardHeader>
                 <CardTitle className="font-bold text-dark-4 pt-2">Don't forget to park the Rocket</CardTitle>
               </CardHeader>
