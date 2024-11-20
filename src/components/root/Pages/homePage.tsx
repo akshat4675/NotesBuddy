@@ -77,10 +77,10 @@ const HomePage = () => {
           </div>
         </div>
           
-        <div className="grid grid-cols-2 pt-2 lg:mx-40">
+        <div className="grid grid-cols-1 pt-2 lg:mx-40">
          
-          <div className="lg:pl-24 lg:mx-10 pb-16 lg:pt-20 grid grid-cols">
-            <Card className="lg:size-[800px] w-[330px] h-auto bg-gradient-to-r from-indigo-500  to-pink-500 bg-cover bg-opacity-20 ">
+          <div className="lg:pl-24 lg:mx-10 pb-16  lg:pt-20 grid grid-cols">
+            <Card className="lg:size-[800px]  h-auto bg-gradient-to-r from-indigo-500  to-pink-500 bg-cover bg-opacity-20 ">
             <CardHeader>
               
               <CardTitle className=" text-center pt-5 text-md font-semibold font-inter text-black">
