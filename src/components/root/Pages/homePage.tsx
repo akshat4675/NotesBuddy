@@ -31,7 +31,7 @@ const HomePage = () => {
         </div>
         <div className="grid lg:grid-cols-2  gap-10 pt-10 lg:mx-40" >
           <div>
-          <Card  className="bg-cyan-100 rounded-xl lg:w-[500px]  h-[700px] lg:h-[600px]  border-transparent">
+          <Card  className="bg-cyan-100 rounded-xl lg:w-[500px] pb-5  lg:h-[600px]  border-transparent">
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-center font-inter text-slate-800">Study Organizer</CardTitle>
             </CardHeader>

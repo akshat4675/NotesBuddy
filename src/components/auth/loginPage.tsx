@@ -1,7 +1,7 @@
 
 //Imports 
 'use client'
-import {  signIn, signUp } from './authService';
+import {  confirmPasswordReset, requestPasswordReset, signIn, signUp } from './authService';
 import { Eye, EyeOff, Mail, Lock, BookOpen} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label'
 import "@/globals.css";
 import { useState } from 'react';
 import {  useNavigate } from 'react-router';
+import { Dialog, DialogTrigger,DialogContent  } from '@/components/ui/dialog';
+
 
 
 
@@ -65,7 +67,7 @@ export default function AuthPage() {
 
   return (
     <>
-    <div className="flex min-h-screen flex-col md:flex-row">
+    <div className="flex min-h-screen flex-col bg-sky-100 md:flex-row">
       <div className="flex w-full items-center justify-center bg-sky-100  p-8 md:w-1/3">
         <Card className="w-full bg-sky-200 max-w-md">
           <CardHeader>
@@ -160,7 +162,7 @@ export default function AuthPage() {
           <Card>
               <CardContent>
               
-                <Label className='text-gray-400 text-xs'>Make sure the password has 1  uppercase letter, 1 lowercase letter, 1 number and 1 special character</Label>
+                <Label className='text-black text-xs'>Make sure the password has 1  uppercase letter, 1 lowercase letter, 1 number and 1 special character</Label>
               </CardContent>
             </Card>
         </div>
@@ -172,11 +174,27 @@ export default function AuthPage() {
             </form>
           </CardContent>
           <CardFooter>
+            <div className='grid grid-cols-1 lg:pl-10 justify-items-center'>
+            <div>
           <Button  variant={"ghost"} className="w-full" onClick={() => setIsSignUp(!isSignUp)}>
         {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
       </Button>
-            
+      </div>
+      <div className=''>
+      <Dialog>
+              <DialogTrigger>
+                <Button variant={"ghost"} className=''>Reset Password</Button>
+              </DialogTrigger>
+              <DialogContent className='bg-violet-400'>
+                <div>
+                   <RequestPasswordReset/>
+                </div>
+              </DialogContent>
+            </Dialog>
+      </div>
+      </div>
           </CardFooter>
+         
         </Card>
       </div>
       <div className="hidden w-full md:block md:w-2/3">
@@ -190,3 +208,78 @@ export default function AuthPage() {
     </>
   )
 }
+
+export const RequestPasswordReset: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("");
+  const [message2, setMessage2] = useState("");
+  const [code, setCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+     
+  const handleRequestReset = async () => {
+    try {
+      await requestPasswordReset(username);
+      setMessage("Password reset code sent to your email.");
+    } catch (error) {
+      setMessage("Error sending password reset request.");
+    }
+  };
+
+  const handleConfirmReset = async () => {
+    try {
+      await confirmPasswordReset(username, code, newPassword);
+      setMessage2("Password successfully reset. You can now log in.");
+    } catch (error) {
+      setMessage2("Error confirming password reset.");
+    }
+  };
+
+  return (
+    <div className=' flex-1'>
+      <h2 className='mt-2'>Request Password Reset</h2>
+      <Input
+        className='mt-3'
+        type="text"
+        placeholder="Enter your username/email"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <Button className='mt-4' onClick={handleRequestReset}>Request Reset</Button>
+      <p>{message}</p>
+      <div className='flex-1'>
+      <h2 className=' m-2'>Confirm Password Reset</h2>
+      <Input
+      className=' mt-2 '
+        type="text"
+        placeholder="Enter your username/email"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <Input
+      className=' mt-3 '
+        type="text"
+        placeholder="Enter the confirmation code"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+      />
+      <div className='grid grid-cols-1 gap-4'>
+      <Input
+      className=' mt-2'
+        type="password"
+        placeholder="Enter your new password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+      />
+      <Card className='bg-rose-200'>
+        <CardContent>
+        <Label className='text-black text-xs'>Make sure the password has 1  uppercase letter, 1 lowercase letter, 1 number and 1 special character</Label>
+        </CardContent>
+      </Card>
+      </div>
+      <Button  className=' m-2'onClick={handleConfirmReset}>Confirm Reset</Button>
+      <p>{message2}</p>
+    </div>
+    </div>
+    
+  );
+};

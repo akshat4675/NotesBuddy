@@ -8,6 +8,8 @@ import {
   GetUserCommand,
   GetUserCommandOutput,
   ResendConfirmationCodeCommand,
+  ConfirmForgotPasswordCommand,
+  ForgotPasswordCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import config from "@/config.json";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
@@ -168,3 +170,36 @@ export const resendConfirmationCode = async (username: string) => {
   }
 };
 
+export const requestPasswordReset = async (username: string) => {
+  const command = new ForgotPasswordCommand({
+    ClientId: "29ii26cp64enchfiq0g14v5ls3",
+    Username: username,
+  });
+
+  try {
+    const response = await cognitoClient.send(command);
+    console.log("Password reset requested:", response);
+    return response;
+  } catch (error) {
+    console.error("Error requesting password reset:", error);
+    throw error;
+  }
+};
+
+export const confirmPasswordReset = async (username: string, code: string, newPassword: string) => {
+  const command = new ConfirmForgotPasswordCommand({
+    ClientId: "29ii26cp64enchfiq0g14v5ls3",
+    Username: username,
+    ConfirmationCode: code,
+    Password: newPassword,
+  });
+
+  try {
+    const response = await cognitoClient.send(command);
+    console.log("Password reset confirmed:", response);
+    return response;
+  } catch (error) {
+    console.error("Error confirming password reset:", error);
+    throw error;
+  }
+};
