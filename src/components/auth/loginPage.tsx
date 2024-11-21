@@ -287,9 +287,9 @@ export default function AuthPage() {
         </Card>
       </div>
       <div className="hidden w-full justify-items-center md:block md:w-2/3">
-      <Card className='bg-transparent  border-transparent shadow-none w-[600px] h-screen'>
+      <Card className='bg-transparent  border-transparent shadow-none w-[850px] h-screen'>
         <img
-          src="src/assets/Images/authimgg.png"
+          src="https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/authimg.png"
           alt="Authentication illustration"
           className="h-full w-full object-cover"
         />
