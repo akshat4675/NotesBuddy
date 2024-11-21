@@ -7,12 +7,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AssignmentManager from "./AssignmentManager";
 import ManageContent from "./NotesManager";
 import Schedule from "./schedule";
-import {Publicnotes} from "./publicnotes";
 import {Rocket} from "./rocket";
+import Publicnotes from "./publicnotes";
 
 
 
 const HomePage = () => {
+
+  
 
   return (
       <>
@@ -35,8 +37,9 @@ const HomePage = () => {
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-center font-inter text-slate-800">Study Organizer</CardTitle>
             </CardHeader>
+           
         <Tabs defaultValue="notes">
-        <TabsList className="mb-4 ml-5 bg-slate-800 shadow-violet-300  shadow-sm">
+        <TabsList className="mb-4 ml-5 bg-slate-800 shadow-violet-900  shadow-sm">
         <TabsTrigger  value="notes" className="text-sm text-white">Notes</TabsTrigger>
         <TabsTrigger value="todos" className="text-sm text-white">Assignments</TabsTrigger>
         </TabsList>

@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import {  Plus } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useNavigate } from 'react-router';
 
 
 
@@ -14,10 +15,7 @@ const ManageContent: React.FC = () => {
   const [selectedItemToDelete, setSelectedItemToDelete] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const userId = sessionStorage.getItem('userSub');
-  if (!userId) {
-    return <p>Please log in to manage content.</p>;
-  }
+
 
   useEffect(() => {
     fetchUploadedItems();
@@ -103,6 +101,17 @@ function AddNotesDialog({ refreshItems }: { refreshItems: () => void }) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
     setFile(selectedFile);
+  }; 
+
+  const navigate = useNavigate();
+
+  function login ()
+  {
+    navigate('/login')
+  }
+  const isAuthenticated = () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    return !!accessToken;
   };
 
   const handleUpload = async () => {
@@ -129,15 +138,25 @@ function AddNotesDialog({ refreshItems }: { refreshItems: () => void }) {
     setFileName('');
   };
 
+  
+
+
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button className="size-auto font-bold bg-slate-500 text-white hover:bg-blue-950 rounded-lg ">
+      {isAuthenticated()? (<><DialogTrigger asChild>
+        <Button  className="size-auto font-bold bg-slate-500 text-white hover:bg-blue-950 rounded-lg ">
           <Plus className="" />Add
         </Button>
-      </DialogTrigger>
+      </DialogTrigger></>):(
+        <>
+        <Button onClick={login} className="size-auto font-bold bg-slate-500 text-white hover:bg-blue-950 rounded-lg ">
+          <Plus className="" />Add
+        </Button>
+      </>)}
+        
+      
       <DialogContent className="sm:max-w-md items-center p-6">
-        <DialogHeader>
+         <DialogHeader>
           <DialogTitle className="text-black text-xl font-semibold">Add Study Materials</DialogTitle>
         </DialogHeader>
         <div className='space-y-3'>
@@ -146,11 +165,12 @@ function AddNotesDialog({ refreshItems }: { refreshItems: () => void }) {
           <Input type="file" onChange={handleFileChange} className='bg-slate-300 text-teal-950  bg-opacity-10' />
         </div>
         <DialogFooter className='pt-4'>
-          <Button onClick={handleUpload} className="bg-teal-950 hover:bg-blue-700 text-white w-full">Upload</Button>
+          <Button  onClick={handleUpload} className="bg-teal-950 hover:bg-blue-700 text-white w-full">Upload</Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary" className="w-full ">Close</Button>
           </DialogClose>
         </DialogFooter>
+        
       </DialogContent>
     </Dialog>
   );

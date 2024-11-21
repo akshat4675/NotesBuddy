@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircleQuestion } from "lucide-react"
 import { fetchPdfUrlsFromDynamoDB, savePdfUrlToDynamoDB, uploadPdfToS3 } from "../Funtions/publicnotes"
+import { useNavigate } from "react-router"
 
 interface Event {
   id: string;
@@ -18,15 +19,39 @@ interface Event {
 }
 
 
-export function Publicnotes (){
+const Publicnotes =()=>{
 
 
+  
+
+    return(
+        <>
+        <div className="justify-items-center  lg:pr-10">
+          <Card className="lg:w-[600px] lg:h-[550px]  bg-violet-200 ">
+            <CardHeader>
+              <CardTitle className="text-3xl font-bold text-center font-inter text-indigo-950">Notes Exchange</CardTitle>
+              <div className="text-base text-gray-600 text-center">Post Notes for your friends .... </div>
+            </CardHeader>
+            <CardContent>
+             <Pnotes/>
+            </CardContent>
+            <CardFooter className="place-content-center">
+            <FileUpload/>
+            </CardFooter>
+          </Card>
+          </div>
+        </>
+    )
+};
+
+export function Pnotes(){
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [newEventName, setNewEventName] = useState("");
 
-
+  
+  
   // Fetch all events from DynamoDB for the specific user
   const fetchAllEvents = async () => {
     try {
@@ -35,7 +60,6 @@ export function Publicnotes (){
       setEvents(response.Items as Event[  ]);
     } catch (error) {
       console.error("Error fetching events:", error);
-      setError("Failed to fetch events.");
     } finally {
       setLoading(false);
     }
@@ -70,16 +94,10 @@ export function Publicnotes (){
   if (error) return <p>{error}</p>;
 
 
-    return(
-        <>
-        <div className="justify-items-center  lg:pr-10">
-          <Card className="lg:w-[600px] lg:h-[550px]  bg-violet-200 ">
-            <CardHeader>
-              <CardTitle className="text-3xl font-bold text-center font-inter text-indigo-950">Notes Exchange</CardTitle>
-              <div className="text-base text-gray-600 text-center">Post Notes for your friends .... </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid lg:gap-10 lg:grid-cols-2 ">
+
+  return(
+    <>
+     <div className="grid lg:gap-10 lg:grid-cols-2 ">
                 <div>
                   <Card className="lg:w-[300px] bg-transparent border-transparent shadow-none h-[300px]">
                     <h1 className=" text-center pt-2 font-semibold">Requests by other students</h1>
@@ -127,21 +145,28 @@ export function Publicnotes (){
               </div>
               </div>
               
-            </CardContent>
-            <CardFooter className="place-content-center">
-            <FileUpload/>
-            </CardFooter>
-          </Card>
-          </div>
-        </>
-    )
-};
+    </>
+  )
+}
 
 
 export const FileUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [uploading, setUploading] = useState(false);
+
+  const isAuthenticated = () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    return !!accessToken;
+  };
+
+  const naviagte = useNavigate();
+
+  function login ()
+  {
+    naviagte('/login')
+  }
+
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files && event.target.files.length > 0) {
@@ -189,7 +214,8 @@ export const FileUpload: React.FC = () => {
       <div>
           <Dialog>
               <DialogTrigger>
-                  <Button>Make a Post</Button>
+              {isAuthenticated() ?  (<><Button>Make a Post</Button></>):(<><Button onClick={login}>Make a Post</Button></>)}
+                  
               </DialogTrigger>
               <DialogContent className="grid grid-cols-1 justify-items-center bg-fuchsia-100">
                   <Input
@@ -247,3 +273,5 @@ export const PdfList: React.FC = () => {
       
   );
 };
+
+export default Publicnotes;

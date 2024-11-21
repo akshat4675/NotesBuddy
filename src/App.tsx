@@ -4,10 +4,10 @@ import '@/globals.css'
 import LoginPage from "./components/auth/loginPage" 
 import ConfirmPage from "./components/auth/confirmPage"
 import HomePage from "./components/root/Pages/homePage"
-import StudyMaterialsPage from './components/root/Pages/study-materials';
-import SchedulePage from './components/root/Pages/schedule';
+
 import UserProfile from './components/auth/userprofile';
 import EditProfilePage from './components/root/Pages/editProfile';
+
 
 
 
@@ -23,14 +23,12 @@ const App = () => {
   return (
     <BrowserRouter>
     <Routes>
-      <Route element={isAuthenticated() ? <Navigate replace to="/home" /> : <Navigate replace to="/login" />}  path="/"></Route>
+      <Route element={<Navigate replace to="/home" />}  path="/"></Route>
       <Route path="/User" element={isAuthenticated() ? <UserProfile /> : <Navigate replace to="/login" />} />
       <Route path="/editUser" element={isAuthenticated() ? <EditProfilePage /> : <Navigate replace to="/login" />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/confirm" element={<ConfirmPage />} />
-      <Route path="/home" element={isAuthenticated() ? <HomePage /> : <Navigate replace to="/login" />} />
-      <Route path="/studymaterials" element={isAuthenticated() ? <StudyMaterialsPage /> : <Navigate replace to="/login" />} />
-      <Route path="/schedule" element={isAuthenticated() ? <SchedulePage /> : <Navigate replace to="/login" />} />
+      <Route path="/home" element={  <HomePage /> } />
     </Routes>
     </BrowserRouter>
   );

@@ -8,7 +8,9 @@ import { getAllEvents, addEvent, deleteEventByName } from "../Funtions/dynamoDBS
 import { ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { addToDo, getToDos, completeToDo, deleteToDo } from '../Funtions/todo';
+import { ToDoList } from "./todo";
+import { useNavigate } from "react-router";
+
 
 // Define event structure
 interface Event {
@@ -19,14 +21,17 @@ interface Event {
 
 const Schedule = () => {
   
+
+
   return (
     <>
     
         <div className="lg:justify-items-center  pt-1">
           
           <div className="">
+          
+          
           <Card className="bg-transparent  lg:h-[500px]  border-transparent">
-             
               <CardContent>
                 <Tabs defaultValue="schedule" >
                   <TabsList className="mb-4 bg-slate-800 shadow-violet-300 shadow-sm" >
@@ -48,7 +53,6 @@ const Schedule = () => {
                     </div>
                   </TabsContent>
                 </Tabs>
-                
               </CardContent>
             </Card>
           </div>
@@ -67,6 +71,21 @@ const ScheduleCard =()=> {
   const [newEventName, setNewEventName] = useState("");
   const [newEventDate, setNewEventDate] = useState("");
 
+
+  const naviagte = useNavigate();
+
+  function login ()
+  {
+    naviagte('/login')
+  }
+
+
+
+  const isAuthenticated = () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    return !!accessToken;
+  };
+
   // Fetch all events from DynamoDB for the specific user
   const fetchAllEvents = async () => {
     try {
@@ -75,7 +94,6 @@ const ScheduleCard =()=> {
       setEvents(response.Items as Event[]);
     } catch (error) {
       console.error("Error fetching events:", error);
-      setError("Failed to fetch events.");
     } finally {
       setLoading(false);
     }
@@ -166,103 +184,16 @@ const ScheduleCard =()=> {
                   />
                 </div>
                 </div>
-                <Button className="w-1/2" onClick={handleAddEvent}>
+                {isAuthenticated()? (<><Button className="w-1/2" onClick={handleAddEvent}>
                   Add Event
-                </Button>
+                </Button></>):(<><Button className="w-1/2" onClick={login}>
+                  Add Event
+                </Button></>)}
+                
                 </div>
     </>
   )
 };
 
-type ToDo = {
-  taskId: string;
-  taskDescription: string;
-  isCompleted: boolean;
-};
-
-export function ToDoList() {
-  const [toDos, setToDos] = useState<ToDo[]>([]);
-  const [taskDescription, setTaskDescription] = useState("");
-
-  useEffect(() => {
-    fetchToDos();
-  }, []);
-
-  const fetchToDos = async () => {
-    const todos = await getToDos();
-    setToDos(todos || []);
-  };
-
-  const handleAddToDo = async () => {
-    if (taskDescription) {
-      await addToDo(taskDescription);
-      setTaskDescription("");
-      fetchToDos();
-    }
-  };
-
-  // Toggle `isCompleted` state
-  const handleComplete = async (taskId: string, currentStatus: boolean) => {
-    await completeToDo(taskId, !currentStatus);  // Toggle the status
-    fetchToDos();
-  };
-
-  const handleDelete = async (taskId: string) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
-      await deleteToDo(taskId);
-      fetchToDos();
-    }
-  };
-
-
-  return (
-    <>
-      
-      {toDos.length >0? 
-      (
-      <ul>
-      {toDos.map((todo) => (
-      <li key={todo.taskId} className="flex justify-between items-center bg-muted p-2 rounded">
-      <div className="flex gap-1">
-      <Label className="text-base" style={{ textDecoration: todo.isCompleted ? 'line-through' : 'none' }}>
-      {todo.taskDescription}
-      </Label>
-      <Label className="font-bold text-lg">{todo.isCompleted}</Label>
-      <Input
-      type="checkbox"
-      checked={todo.isCompleted}
-      onChange={() => handleComplete(todo.taskId,todo.isCompleted)}
-      className="size-auto"
-      />
-      </div>
-      <button onClick={() => handleDelete(todo.taskId,)}>
-      <DeleteIcon />
-      </button>
-      </li>
-      ))}
-      </ul> 
-     ):(<div className="flex"><h1>No Tasks added yet.</h1></div>) }
-      
-      <div className="pt-3 gap-3">
-      
-      <Input
-      type="text"
-      placeholder="Add a new task"
-      value={taskDescription}
-      onChange={(e) => setTaskDescription(e.target.value)}
-      className=" bg-gray-400 placeholder:text-slate-700 lg:text-xl text-xl font-bold"
-      />
-      
-      <div className="pt-2">
-      <Button 
-      onClick={handleAddToDo} variant={"secondary"} 
-      className="w-1/2 bg-gray-800  text-white text-xl">
-        Add
-      </Button>
-      </div>
-      </div>
-    </>
-  );
-}
 
 export default Schedule;

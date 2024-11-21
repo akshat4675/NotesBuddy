@@ -8,16 +8,13 @@ import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogClose } from "
 import { Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { fetchSubjects, deleteDataFromDynamoDB, uploadDataToDynamoDB } from "../Funtions/AssignmentFunctions";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentManager : React.FC = () => {
     const [uploadedItems, setUploadedItems] = useState<Array<{ subjectName: string; unitName: string; pdfUrl: string; fileName: string }>>([]);
     const [selectedItemToDelete, setSelectedItemToDelete] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const userId = sessionStorage.getItem('userSub');
-    if (!userId) {
-      return <p>Please log in to manage content.</p>;
-    }
   
     useEffect(() => {
       fetchUploadedItems();
@@ -107,6 +104,19 @@ const AssignmentManager : React.FC = () => {
       setFile(selectedFile);
     };
   
+    
+  const navigate = useNavigate();
+
+  function login ()
+  {
+    navigate('/login')
+  }
+  const isAuthenticated = () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    return !!accessToken;
+  };
+
+
     const handleUpload = async () => {
       if (!file || !subjectName || !unitName) {
         alert('Please fill in all fields and select a file to upload');
@@ -133,11 +143,16 @@ const AssignmentManager : React.FC = () => {
   
     return (
       <Dialog>
-        <DialogTrigger asChild>
-          <Button className="lg:w-1/2   bg-slate-500 text-white font-semibold hover:bg-blue-950 rounded-lg ">
-            <Plus className="" /> Add Assignments
-          </Button>
-        </DialogTrigger>
+        {isAuthenticated()? (<><DialogTrigger asChild>
+        <Button  className="size-auto font-bold bg-slate-500 text-white hover:bg-blue-950 rounded-lg ">
+          <Plus className="" />Add Assignments
+        </Button>
+      </DialogTrigger></>):(
+        <>
+        <Button onClick={login} className="size-auto font-bold bg-slate-500 text-white hover:bg-blue-950 rounded-lg ">
+          <Plus className="" />Add Assignments
+        </Button>
+      </>)}
         <DialogContent className="sm:max-w-md items-center p-6">
           <DialogHeader>
             <DialogTitle className="text-black text-xl font-semibold">Create Assignments</DialogTitle>
@@ -200,7 +215,7 @@ const AssignmentManager : React.FC = () => {
             </Button>
           ))}
           </Card>
-        </div>):(<div  className='text-white'>No Subjects , Please upload from below !</div>)}
+        </div>):(<div  className='text-white text-sm'>No Subjects , Please upload from below !</div>)}
   
         {/* Dialog for displaying notes by subject */}
         {selectedSubject && (

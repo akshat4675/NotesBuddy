@@ -20,9 +20,18 @@ export function Head()
   navigate('/login');
 };
 
+function login(){
+  navigate('/login');
+}
+
 const profile=()=>{
   navigate('/edituser');
 }
+const isAuthenticated = () => {
+  const accessToken = sessionStorage.getItem('accessToken');
+  return !!accessToken;
+};
+
     return (
         <>
         <header className="flex items-center lg:pl-6  justify-between p-4 bg-transparent shadow-none">
@@ -32,7 +41,10 @@ const profile=()=>{
               </div>
               
                <h1 className="text-2xl lg:text-3xl font-bold text-white pr-10">NotesVerse</h1>
+               {isAuthenticated()? (<></>):(<> <Button variant={"secondary"} onClick={login} className="bg-sky-300 font-bold">Login</Button></>)}
+              
                </div>
+               {isAuthenticated()? (
                <div className="grid  gap-2 lg:flex grid-cols-1"> 
                <TooltipProvider>
                 <Tooltip>
@@ -45,6 +57,7 @@ const profile=()=>{
                   </TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
+              
                 <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -55,9 +68,7 @@ const profile=()=>{
                   </TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
-               
-        
-        </div>
+        </div>):(<></>)}
         </header>
         </>
     )
