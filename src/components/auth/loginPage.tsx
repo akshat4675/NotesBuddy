@@ -90,7 +90,7 @@ export default function AuthPage() {
   return (
     <>
     <div className="flex min-h-screen flex-col bg-sky-100 md:flex-row">
-      <div className="flex w-full items-center justify-center bg-sky-100 ml-10 p-8 md:w-1/3">
+      <div className="flex w-full items-center justify-center bg-sky-100 lg:ml-10 lg:p-8 md:w-1/3">
         <Card className="w-full bg-sky-200 max-w-md ">
           <CardHeader>
           <div className="flex items-center space-x-2 mb-4">
