@@ -119,7 +119,8 @@ export default function AuthPage() {
                   <Mail className="absolute left-3 top-3 h-5 w-5 text-black" />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 ">
+                <div></div>
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input
@@ -151,7 +152,7 @@ export default function AuthPage() {
                 </div>
                 
               </div>
-              
+
               {isSignUp && (
            <div className="space-y-4">
            <Label htmlFor="confirmpassword">Confirm Password</Label>
@@ -246,6 +247,7 @@ export default function AuthPage() {
                  </li>
                </ul>
                   </div>
+                  
                </div>
               
              </CardContent>
@@ -287,7 +289,7 @@ export default function AuthPage() {
         </Card>
       </div>
       <div className="hidden w-full justify-items-center md:block md:w-2/3">
-      <Card className='bg-transparent  border-transparent shadow-none w-[850px] h-screen'>
+      <Card className='bg-transparent border-transparent shadow-none w-[850px] h-screen'>
         <img
           src="https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/authimg.png"
           alt="Authentication illustration"
