@@ -90,8 +90,8 @@ export default function AuthPage() {
   return (
     <>
     <div className="flex min-h-screen flex-col bg-sky-100 md:flex-row">
-      <div className="flex w-full items-center justify-center bg-sky-100  p-8 md:w-1/3">
-        <Card className="w-full bg-sky-200 max-w-md">
+      <div className="flex w-full items-center justify-center bg-sky-100 ml-10 p-8 md:w-1/3">
+        <Card className="w-full bg-sky-200 max-w-md ">
           <CardHeader>
           <div className="flex items-center space-x-2 mb-4">
           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
@@ -286,12 +286,14 @@ export default function AuthPage() {
          
         </Card>
       </div>
-      <div className="hidden w-full md:block md:w-2/3">
+      <div className="hidden w-full justify-items-center md:block md:w-2/3">
+      <Card className='bg-transparent  border-transparent shadow-none w-[600px] h-screen'>
         <img
-          src="https://testbucket4675.s3.ap-south-1.amazonaws.com/FrontendImgs/study-7217599_1920.jpg"
+          src="src/assets/Images/authimgg.png"
           alt="Authentication illustration"
           className="h-full w-full object-cover"
         />
+        </Card>
       </div>
     </div>
     </>
