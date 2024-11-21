@@ -74,12 +74,12 @@ export default function AuthPage() {
           <CardHeader>
           <div className="flex items-center space-x-2 mb-4">
           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-            <BookOpen className="text-primary-foreground text-blue-500 w-7 h-8" />
+            <BookOpen className="text-primary-foreground text-blue-700 w-7 h-8" />
           </div>
-          <span className="text-xl font-semibold">StudyBuddy</span>
+          <span className="text-2xl font-bold">NotesVerse</span>
         </div>
-          <CardTitle className=" text-2xl font-bold">{isSignUp ? 'Sign up' : 'Sign in'}</CardTitle>
-          <CardDescription className='text-s   text-blue-950'>Enter your Credentials</CardDescription>
+          <CardTitle> <div className=" text-2xl font-bold">{isSignUp ? 'Sign up' : 'Sign in'}<span className=' pl-2 text-sm   text-gray-500'>Enter your Credentials</span></div></CardTitle>
+          <CardDescription ></CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={isSignUp ? handleSignUp : handleSignIn} className="space-y-4">
