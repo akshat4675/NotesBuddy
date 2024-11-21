@@ -21,6 +21,7 @@ export default function AuthPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false)
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignIn , setIsSignIn] = useState(false);
   const navigate = useNavigate();
 
 
@@ -127,7 +128,9 @@ export default function AuthPage() {
                     </span>
                   </Button>
                 </div>
+                
               </div>
+              
               {isSignUp && (
           <div className="space-y-2">
           <Label htmlFor="confirmpassword">Confirm Password</Label>
@@ -168,6 +171,20 @@ export default function AuthPage() {
         </div>
           
         )}
+        {isSignIn || ( <div className=''>
+        
+        <Dialog>
+        <DialogTrigger>
+          <Button variant={"ghost"} className=''>Reset Password</Button>
+        </DialogTrigger>
+        <DialogContent className='bg-violet-400'>
+          <div>
+             <RequestPasswordReset/>
+          </div>
+        </DialogContent>
+      </Dialog>
+       </div>  
+         ) }
               <Button type="submit" className="w-full bg-rose-400 text-white hover:bg-black">
               {isSignUp ? 'Sign Up' : 'Sign In'}
               </Button>
@@ -176,22 +193,11 @@ export default function AuthPage() {
           <CardFooter>
             <div className='grid grid-cols-1 lg:pl-10 justify-items-center'>
             <div>
-          <Button  variant={"ghost"} className="w-full" onClick={() => setIsSignUp(!isSignUp)}>
+          <Button  variant={"ghost"} className="w-full" onClick={() => { setIsSignIn(!isSignIn),setIsSignUp(!isSignUp) }} >
         {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
       </Button>
       </div>
-      <div className=''>
-      <Dialog>
-              <DialogTrigger>
-                <Button variant={"ghost"} className=''>Reset Password</Button>
-              </DialogTrigger>
-              <DialogContent className='bg-violet-400'>
-                <div>
-                   <RequestPasswordReset/>
-                </div>
-              </DialogContent>
-            </Dialog>
-      </div>
+     
       </div>
           </CardFooter>
          
