@@ -2,7 +2,7 @@
 //Imports 
 'use client'
 import {  confirmPasswordReset, requestPasswordReset, signIn, signUp } from './authService';
-import { Eye, EyeOff, Mail, Lock, BookOpen} from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, BookOpen , CheckCircle} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -24,7 +24,28 @@ export default function AuthPage() {
   const [isSignIn , setIsSignIn] = useState(false);
   const navigate = useNavigate();
 
+  
 
+  const hasUppercase = /[A-Z]/.test(confirmPassword);
+  const hasLowercase = /[a-z]/.test(confirmPassword);
+  const hasNumber = /[0-9]/.test(confirmPassword);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(confirmPassword);
+  const isValidLength = confirmPassword.length >= 8;
+  
+  const PhasUppercase = /[A-Z]/.test(password);
+  const PhasLowercase = /[a-z]/.test(password);
+  const PhasNumber = /[0-9]/.test(password);
+  const PhasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  const PhasLength = password.length >= 8;
+ 
+   function samee ()
+  {
+    if(password === confirmPassword )
+      {
+        return true
+      } 
+  }
+  
   //SignIn function
   const handleSignIn = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -132,43 +153,105 @@ export default function AuthPage() {
               </div>
               
               {isSignUp && (
-          <div className="space-y-2">
-          <Label htmlFor="confirmpassword">Confirm Password</Label>
-          <div className="relative">
-            <Input
-              id="confirmpassword"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="bg-gray-500 pl-10 text-white placeholder:text-black"
-              required
-            />
-            <Lock className="absolute left-3 top-3 h-5 w-5 text-black" />
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-black"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <EyeOff className="h-5 w-5 text-black" />
-              ) : (
-                <Eye className="h-5 w-5 text-black" />
-              )}
-              <span className="sr-only">
-                {showPassword ? 'Hide password' : 'Show password'}
-              </span>
-            </Button>
-          </div>
-          <Card>
-              <CardContent>
+           <div className="space-y-4">
+           <Label htmlFor="confirmpassword">Confirm Password</Label>
+           <div className="relative">
+             <Input
+               id="confirmpassword"
+               type={showPassword ? "text" : "password"}
+               placeholder="Confirm password"
+               value={confirmPassword}
+               onChange={(e) => setConfirmPassword(e.target.value)}
+               className="bg-gray-500 pl-10 text-white placeholder:text-black"
+               required
+             />
+             <Lock className="absolute left-3 top-3 h-5 w-5 text-black" />
+             <Button
+               type="button"
+               variant="ghost"
+               size="icon"
+               className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-black"
+               onClick={() => setShowPassword(!showPassword)}
+             >
+               {showPassword ? (
+                 <EyeOff className="h-5 w-5 text-black" />
+               ) : (
+                 <Eye className="h-5 w-5 text-black" />
+               )}
+               <span className="sr-only">
+                 {showPassword ? "Hide password" : "Show password"}
+               </span>
+             </Button>
+           </div>
+     
+           {/* Password Requirements */}
+           <Card className="bg-gray-200  text-dark-4">
+             <CardContent className='space-y-2'>
+               <Label className="text-sm font-bold mb-2">Password Requirements:</Label>
+               <div className='grid gap-2 grid-cols-2'>
+                    <div>
+                    <ul className="space-y-2 text-sm">
+                    <li className="flex items-center space-x-2">
+                   <CheckCircle
+                     className={`h-5 w-5  ${
+                       hasUppercase && PhasUppercase ? "text-green-500" : "text-gray-500"
+                     } `}
+                   />
+                   <span className='text-xs'>Include at least 1 uppercase letter</span>
+                 </li>
+                 <li className="flex items-center space-x-2">
+                   <CheckCircle
+                     className={`h-4 w-4  ${
+                       hasLowercase && PhasLowercase ? "text-green-500" : "text-gray-500"
+                     }`}
+                   />
+                   <span className='text-xs'>Include at least 1 lowercase letter</span>
+                 </li>
+                 <li className="flex items-center space-x-2">
+                   <CheckCircle
+                     className={`h-3 w-3 ${
+                       hasNumber && PhasNumber ? "text-green-500" : "text-gray-500"
+                     }`}
+                   />
+                   <span className='text-xs'>Include at least 1 number</span>
+                 </li>
+                    </ul>
+                    </div>
+                    <div>
+                    <ul className="space-y-2 text-sm">
+                 
+                 <li className="flex items-center space-x-2">
+                   <CheckCircle
+                     className={`h-5 w-5  ${
+                       hasSpecialChar && PhasSpecialChar ? "text-green-500" : "text-gray-500"
+                     }`}
+                   />
+                   <span className='text-xs'>Include at least 1 special character</span>
+                 </li>
+                 <li className="flex items-center space-x-2">
+                   <CheckCircle
+                     className={`h-4 w-4  ${
+                       isValidLength && PhasLength ? "text-green-500" : "text-gray-500"
+                     }`}
+                   />
+                   <span className='text-xs'>Be at least 8 characters long</span>
+                 </li>
+                 <li className="flex items-center space-x-2">
+                   <CheckCircle
+                     className={`h-3 w-3  ${
+                      samee( ) ===true ? "text-green-500" : "text-gray-500"
+                     }`}
+                   />
+                   { samee( ) ===true ? (<span className='text-xs'>Password are same </span>):(<span className='text-xs'>Password are different</span>)}
+                 </li>
+               </ul>
+                  </div>
+               </div>
               
-                <Label className='text-black text-xs'>Make sure the password has 1  uppercase letter, 1 lowercase letter, 1 number and 1 special character</Label>
-              </CardContent>
-            </Card>
-        </div>
+             </CardContent>
+           </Card>
+         </div>
+       
           
         )}
         {isSignIn || ( <div className=''>
