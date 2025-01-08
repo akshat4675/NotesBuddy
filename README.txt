@@ -36,18 +36,6 @@ User-Specific Data Access
 CI/CD Pipeline
 * AWS Amplify is used for continuous integration and continuous deployment (CI/CD), automating build and deployment processes.
 * Integration with GitHub ensures version control and a robust workflow, demonstrating proficiency in DevOps practices.
-________________
-
-
-Folder Structure
-src/
-|-- components/    # Reusable UI components
-|-- pages/         # Application pages (Home, Login, Dashboard, etc.)
-|-- services/      # AWS SDK integrations
-|-- utils/         # Utility functions
-|-- App.js         # Main application file
-|-- main.js        # Entry point for Vite
-
 
 ________________
 
