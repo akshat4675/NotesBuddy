@@ -15,7 +15,8 @@ ________________
 Tech Stack
 Frontend:
 * React (with Vite for fast builds)
-* JavaScript (ES6+)
+* JavaScript  (ES6+)
+* TypeScript 
 Backend:
 * AWS DynamoDB (NoSQL database for data storage)
 * AWS S3 (for file storage)
